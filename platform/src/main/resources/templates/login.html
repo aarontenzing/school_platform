@@ -5,9 +5,15 @@
 
 <body>	
 <div th:replace="fragments/general.html :: header">Hier komt de hoofding</div>
-<h1>Algemene mededelingen:</h1>
-<p>Arthur je bent mijn dikke vriend :)</p>
-<img src="arthur.jpg" width="300" height="300">
+
+<h1>Login</h1>
+<div th:if="${param.error}">Invalid username and password.</div>
+<form th:action="@{/login}" method='POST'>
+		<p> Gebruiker: <input type="text" name="username" /></p>
+		<p> Paswoord: <input type="password" name="password"/></p>
+		<p> <input type="submit" value="Login" /></p>
+</form>
+
 <footer th:replace="fragments/general.html :: footer">Hier komt een voeter</footer>
 </body>
 

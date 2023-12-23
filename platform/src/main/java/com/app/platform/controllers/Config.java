@@ -12,12 +12,14 @@ public class Config {
 	public SecurityFilterChain beveilig(HttpSecurity http) throws Exception 
 	{
 		http.authorizeHttpRequests(authorize -> authorize
-				.requestMatchers("/home").permitAll()
-				.anyRequest().authenticated()
+				.requestMatchers("/private/**").authenticated()
+				.anyRequest().permitAll()
 				)
 				.formLogin(form -> form
-						.defaultSuccessUrl("/home.html")
-			    );
+						.loginPage("/login")
+						.defaultSuccessUrl("/home")
+						.permitAll()
+				);
 		
 		return http.build();
 	}
