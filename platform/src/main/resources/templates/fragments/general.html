@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+	
+<head th:fragment="headerfiles">
+<link rel="stylesheet" href="style.css">
+<meta charset="ISO-8859-1">
+<title>ScholarView</title>
+</head>
+
+<body>
+<div th:fragment="header">
+	<h1>ScholarView</h1>
+	<nav class="navbar">
+	  	<ul>
+		  	<li><a href="/home">Home</a></li>
+		  	<li><a href="/login">Login</a></li>
+		  	<li><a href="/berichten">Berichten</a></li>
+		  	<li><a href="/toetsen">Toetsen</a></li>
+		  	<li><a href="/logout">Loguit</a></li>
+	  	</ul>
+	</nav>
+</div>
+<footer th:fragment="footer">2024 - ScholarView - Aaron Van Campenhout en Arthur Deleu</footer>
+
+</body>
+</html>
+
