@@ -18,7 +18,7 @@ xmlns:th="http://www.thymeleaf.org">
 		  	<li><a href="/login">Login</a></li>
 		  	<li><a href="/private/berichten">Berichten</a></li>
 		  	<li><a href="/private/toetsen">Toetsen</a></li>
-		  	<li><form th:action="@{/logout}" method="post"><input type="submit" value="Loguit"></input></form></li>
+		  	<li th:if="${#authorization.expression('isAuthenticated()')}"><form th:action="@{/logout}" method="post"><input type="submit" value="Loguit"></input></form></lith:if="${#authorization.expression('isAuthenticated()')}">
 	  	</ul>	  	
 	</nav>
 </div>
