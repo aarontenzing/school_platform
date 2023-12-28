@@ -1,45 +1,34 @@
 package com.app.platform.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Klas")
+@Table(name = "klas")
 public class Klas {
 	
 	@Id
-	@Column(name = "klas_id")
-	private int id;
+	private int klas_id;
 	
-	@Column(name = "aantal")
+	@Column
 	private int aantal;
 	
-	@OneToMany(mappedBy = "Klas", cascade = CascadeType.ALL)
-	private ArrayList<Leerling> leerlingen = new ArrayList<Leerling>();
-
-	public int getAantal() {
-		return aantal;
-	}
-
-	public void setAantal(int aantal) {
-		this.aantal = aantal;
-	}
-
-	public ArrayList<Leerling> getLeerlingen() {
-		return leerlingen;
-	}
-
-	public void setLeerlingen(ArrayList<Leerling> leerlingen) {
-		this.leerlingen = leerlingen;
-	}
+	@OneToMany(mappedBy = "klas") 
+    private List<Leerling> leerlingen = new ArrayList<>();
 	
+	@ManyToOne
+	@JoinColumn(name = "leerkracht_id")
+	private Leerkracht leerkracht;
 	
-	
+	public Klas( ) {
+	}
 
 }

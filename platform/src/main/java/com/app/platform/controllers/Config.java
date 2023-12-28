@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -35,10 +36,10 @@ public class Config {
 		
 		return http.build();
 	}
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
+		return NoOpPasswordEncoder.getInstance();
 	}
 	
 	@Autowired
@@ -46,8 +47,8 @@ public class Config {
 		auth
 		.jdbcAuthentication()
 		.dataSource(dataSource)
-		.usersByUsernameQuery("select username,passwd,1 from users where username = ?")
-		.authoritiesByUsernameQuery("select username,authority from authorities where username = ?");
+		.usersByUsernameQuery("select id,paswoord,1 from gebruikers where id = ?")
+		.authoritiesByUsernameQuery("select id,rtrim(rol) from gebruikers where id = ?");
 	}
 
 }

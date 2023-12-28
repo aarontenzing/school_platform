@@ -8,21 +8,25 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "toetsen")
-public class Toets {
-
+@Table(name = "scores")
+public class Score {
+	
 	@Id
 	@Column
-	private int toets_id;
+	private int score_id;
 	
 	@Column
-	private String toets_naam;
+	private int score;
 	
 	@ManyToOne
-	@JoinColumn(name = "dnummer")
-	private Leerkracht docent;
+	@JoinColumn(name = "toets_id")
+	private Toets toets;
 	
-	public Toets() {
+	@ManyToOne
+    @JoinColumn(name = "leerling_id")
+    private Leerling leerling;
+	
+	public Score() {
 		
 	}
 
