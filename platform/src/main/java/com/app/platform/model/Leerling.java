@@ -1,19 +1,23 @@
 package com.app.platform.model;
 
+
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "gebruikers")
+@Table(name = "leerlingen")
 public class Leerling {
 	
 	@Id
-	@Column(name = "id")
-	private String rnummer;
+	@Column(name = "leerling_id")
+	private String leerling_id;
 	
 	@Column(name = "naam")	
 	private String naam;
@@ -21,12 +25,18 @@ public class Leerling {
 	@Column(name= "paswoord")
 	private String paswoord;
 	
+	@Column(name= "rol")
+	private String rol = "ROLE_student";
+	
+	@Column(name= "enabled")
+	private int enabled;
+	
 	@ManyToOne
     @JoinColumn(name = "klas_id")
     private Klas klas;
 	
-	@Column(name= "rol")
-	private String rol = "ROLE_student";
+	@OneToMany(mappedBy = "leerling")
+	private List<Score> scores;
 	
 	public Leerling() {
 		

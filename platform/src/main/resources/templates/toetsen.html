@@ -4,9 +4,27 @@
 <head th:replace="fragments/general.html :: headerfiles"></head>
 
 <body>	
+	
 <div th:replace="fragments/general.html :: header">Hier komt de hoofding</div>
+
 <h1>Toetsen:</h1>
+<table id="punten">
+	<tr>
+		<th>Vak</th> 
+		<th>Score</th>
+		<th>Leerkracht</th>
+	</tr>
+<div th:each="scores : ${application.scores}" clas="score" >
+	   <tr>
+	      	<td th:text="${scores.getToets().getToets_naam()}"></td> 
+			<td th:text="${scores.getScore()}" th:class="${scores.getScore() < 5 ? 'red-text' : (scores.getScore() >= 5 && scores.getScore() <= 7) ? 'yellow-text' : 'green-text'}"></td>
+			<td th:text="${scores.getToets().getLeerkracht().getNaam()}"></td> 
+	   </tr>
+</div>
+</table>
+
 <footer th:replace="fragments/general.html :: footer">Hier komt een voeter</footer>
+
 </body>
 
 </html>

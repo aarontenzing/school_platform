@@ -47,8 +47,8 @@ public class Config {
 		auth
 		.jdbcAuthentication()
 		.dataSource(dataSource)
-		.usersByUsernameQuery("select id,paswoord,1 from gebruikers where id = ?")
-		.authoritiesByUsernameQuery("select id,rtrim(rol) from gebruikers where id = ?");
-	}
+		.usersByUsernameQuery("SELECT leerling_id, paswoord, enabled FROM leerlingen WHERE leerling_id=?")
+		.authoritiesByUsernameQuery("SELECT leerling_id, rtrim(rol) FROM leerlingen WHERE leerling_id=?");
+	} 
 
 }
