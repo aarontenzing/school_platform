@@ -2,6 +2,8 @@ package com.app.platform.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -12,14 +14,14 @@ import jakarta.persistence.Table;
 public class Score {
 	
 	@Id
-	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int score_id;
 	
 	@Column
 	private int score;
 	
-	@Column 
-	private int afwezig;
+	@Column(nullable = false)
+	private int afwezig = 0;
 	
 	@ManyToOne
 	@JoinColumn(name = "toets_id")

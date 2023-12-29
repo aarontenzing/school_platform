@@ -56,7 +56,7 @@ public class MainController {
 	
 	@GetMapping("/private/toetsen")
 	public String toetsen(){
-		ctx.setAttribute("scores", score.getScoresStudent(getCurrentUsername()));
+		ctx.setAttribute("scores", score.findLeerling(getCurrentUsername()));
 		return "toetsen.html";
 	}
 	

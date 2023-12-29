@@ -27,7 +27,7 @@ public class Leerkracht {
 	private List<Toets> toetsen;
 	
 	// owner van relationship -> altijd mappedBy
-	@ManyToMany(mappedBy = "leerkrachten")
+	@OneToMany(mappedBy = "leerkracht")
 	private List<Klas> klassen;
 
 	@Column(name= "rol")

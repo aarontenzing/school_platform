@@ -16,9 +16,16 @@
 	</tr>
 <div th:each="scores : ${application.scores}" clas="score" >
 	   <tr>
-	      	<td th:text="${scores.getToets().getToets_naam()}"></td> 
-			<td th:text="${scores.getScore()}" th:class="${scores.getScore() < 5 ? 'red-text' : (scores.getScore() >= 5 && scores.getScore() <= 7) ? 'yellow-text' : 'green-text'}"></td>
-			<td th:text="${scores.getToets().getLeerkracht().getNaam()}"></td> 
+		   	<div th:if="${scores.getAfwezig() == 0}">
+	      		<td th:text="${scores.getToets().getToets_naam()}"></td> 
+				<td th:text="${scores.getScore()}" th:class="${scores.getScore() < 5 ? 'red-text' : (scores.getScore() >= 5 && scores.getScore() <= 7) ? 'yellow-text' : 'green-text'}"></td>
+				<td th:text="${scores.getToets().getLeerkracht().getNaam()}"></td> 
+			</div>
+			<div th:unless="${scores.getAfwezig} == 0">
+				<td th:text="${scores.getToets().getToets_naam()}"></td> 
+				<td th:text="Afwezig"></td>
+				<td th:text="${scores.getToets().getLeerkracht().getNaam()}"></td> 
+			</div>
 	   </tr>
 </div>
 </table>
