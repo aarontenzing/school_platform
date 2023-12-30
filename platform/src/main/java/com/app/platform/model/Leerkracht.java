@@ -36,7 +36,10 @@ public class Leerkracht {
 	private int enabled;
 	
 	public Leerkracht() {
-		
+	}
+	
+	public Leerkracht(String leerkracht_id) {
+		this.leerkracht_id = leerkracht_id;
 	}
 
 	public String getLeerkracht_id() {

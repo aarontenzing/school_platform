@@ -21,7 +21,6 @@ public class MainController {
 	@Autowired
 	private ServletContext ctx;
 	
-	// Inside your service or controller class method
 	public String getCurrentUsername() {
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -55,8 +54,15 @@ public class MainController {
 	
 	@GetMapping("/private/toetsen")
 	public String toetsen(){
-		ctx.setAttribute("scores", score.findLeerling(getCurrentUsername()));
-		return "toetsen.html";
+		
+		if (getCurrentUsername().contains("r")) {
+			ctx.setAttribute("scores", score.findLeerling(getCurrentUsername()));
+			return "toetsen.html";
+		}
+		
+		else {
+			return "redirect:/leerkracht/toetsen";
+		}
 	}
 	
 }

@@ -23,10 +23,39 @@ public class Klas {
     private List<Leerling> leerlingen = new ArrayList<>();
 	
 	@ManyToMany(mappedBy = "klassen")
-	private List<Leerkracht> leerkracht = new ArrayList<>();
-	
+	private List<Leerkracht> leerkrachten = new ArrayList<>();
 	
 	public Klas( ) {
+	}
+
+	
+	public int getKlas_id() {
+		return klas_id;
+	}
+
+
+	public void setKlas_id(int klas_id) {
+		this.klas_id = klas_id;
+	}
+
+
+	public List<Leerling> getLeerlingen() {
+		return leerlingen;
+	}
+
+
+	public void setLeerlingen(List<Leerling> leerlingen) {
+		this.leerlingen = leerlingen;
+	}
+
+
+	public List<Leerkracht> getLeerkrachten() {
+		return leerkrachten;
+	}
+
+
+	public void setLeerkrachten(List<Leerkracht> leerkrachten) {
+		this.leerkrachten = leerkrachten;
 	}
 
 }
