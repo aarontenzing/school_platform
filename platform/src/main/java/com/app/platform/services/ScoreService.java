@@ -15,14 +15,6 @@ public class ScoreService implements IScoreService {
 	@Autowired
 	private ScoreRepository ScoreRepo;
 	
-	public List<Score> getScoresLeerling() {
-		return ScoreRepo.findAll();
-	}
-	
-	public List<Score> getScoresStudent(String id) {
-		return ScoreRepo.findAllByLeerlingId(id);
-	}
-	
 	public List<Score> findLeerling(String id) {
 		Leerling obj = new Leerling(id);
 		return ScoreRepo.findAllByLeerling(obj);
