@@ -10,17 +10,24 @@
 <h1>Scores toevoegen klas <span th:text="${application.geselecteerde_klas}"></span></h1>
 
 <form th:action="@{/submitScores}" method="post">
-	
 	<label for="vak_naam">Toets naam:</label>
 	<input type="text" id="vak_naam" name="vak_naam" required><br><br>
-	
-	<div th:each="leerling : ${application.leerlingen_lijst}">
-		<label th:for="${leerling.getLeerling_id()}" th:text="${leerling.getNaam()}"></label>
-  		<input type="number" th:id="${leerling.getLeerling_id()}" th:name="${leerling.getLeerling_id()}" min="1" max="10" required><br><br>
-  		<input type="checkbox" id="afwezig" th:name="${'afwezig_' + leerling.getLeerling_id()}" th:value="false">
-        <label for="afwezig">Afwezig</label><br><br>
-	</div>	
-	
+     <table>
+		<thead>
+            <tr>
+                <th>Student</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+			<tr th:each="leerling : ${application.leerlingen_lijst}">
+			<td>
+				<label th:for="${leerling.getLeerling_id()}" th:text="${leerling.getNaam()}"></label>
+	  			<input type="number" th:id="${leerling.getLeerling_id()}" th:name="${leerling.getLeerling_id()}" min="1" max="10">
+	  		</td>
+	        </tr>
+        </tbody>
+	</table>
 	<button type="submit">Ingeven</button>
 </form>
 

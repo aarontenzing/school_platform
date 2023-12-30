@@ -1,1 +1,1 @@
-select * from toetsen;
+select * from leerlingen;

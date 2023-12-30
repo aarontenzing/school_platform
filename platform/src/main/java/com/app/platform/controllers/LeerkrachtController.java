@@ -91,34 +91,44 @@ public class LeerkrachtController {
 	public String handleSubmitScores(@RequestParam Map<String, String> allParams) {
 		
 		String vak_naam = null;
-		// Alle ingegeven scores per leerling
+		// Vak naam verkrijgen uit array
 		for (Map.Entry<String, String> entry : allParams.entrySet()) {
 			if ("vak_naam".equals(entry.getKey())) {
 				vak_naam = entry.getValue();
 				break;
 			}
         }
-		System.out.println(vak_naam);
-		// toets aanmaken
+	
+		// Toets aanmaken 
 		Toets savedToets = toetsserv.writeToets(vak_naam, getCurrentUsername());
-		// toets id returnen
-		savedToets.getToets_id();
-		// scores weg schrijven
+		
+		// Scores weg schrijven, door lijst lopen en alle punten krijgen
+		String leerling_id;
+		String score;
+		int isAbsent;
+		
 		for (Map.Entry<String, String> entry : allParams.entrySet()) {
 			if ("vak_naam".equals(entry.getKey()) || "_csrf".equals(entry.getKey())) {
 				continue;
 			}
-            String leerling_id = entry.getKey();
-            String score = entry.getValue();
-            System.out.println("Parameter: " + leerling_id + ", Value: " + score);
-            scoreserv.writeScore(Integer.parseInt(score), 0, savedToets, leerling_id);
+			if ("_csrf".equals(entry.getKey())) {
+				continue;
+			}
+			if (entry.getValue().isEmpty()) {
+				leerling_id = entry.getKey();
+				score = "0";
+				isAbsent = 1;
+			}
+			else {
+				leerling_id = entry.getKey();
+		        score = entry.getValue();
+		        isAbsent = 0;
+			}
+	      
+            System.out.println("Parameter: " + leerling_id + ", Value: " + score + ", Afwezig " + isAbsent);
+            scoreserv.writeScore(Integer.parseInt(score), isAbsent, savedToets, leerling_id);
         }
-		
-		
-		
 		return("toetsenBeheer");
 	}
-	
-
 
 }

@@ -27,7 +27,6 @@ public class Klas {
 	
 	public Klas( ) {
 	}
-
 	
 	public int getKlas_id() {
 		return klas_id;
