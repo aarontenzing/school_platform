@@ -2,12 +2,7 @@ package com.app.platform.model;
 
 import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="leerkrachten")
@@ -27,7 +22,11 @@ public class Leerkracht {
 	private List<Toets> toetsen;
 	
 	// owner van relationship -> altijd mappedBy
-	@OneToMany(mappedBy = "leerkracht")
+	@ManyToMany
+	@JoinTable(name = "leerkracht_klas", 
+		joinColumns = @JoinColumn(name = "leerkracht_id"),
+		inverseJoinColumns = @JoinColumn(name = "klas_id")
+	)
 	private List<Klas> klassen;
 
 	@Column(name= "rol")
