@@ -6,5 +6,8 @@ import com.app.platform.model.Toets;
 
 
 public interface ToetsRepository extends JpaRepository<Toets, Integer>{
+	
+	// save schrijft weg en Flush voor  voert wijzigingen meteen uit
+	Toets saveAndFlush(Toets newToets);
 
 }

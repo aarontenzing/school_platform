@@ -1,6 +1,7 @@
 package com.app.platform.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -8,13 +9,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.app.platform.model.Klas;
 import com.app.platform.model.Leerling;
 import com.app.platform.services.KlasService;
 import com.app.platform.services.LeerkrachtService;
+import com.app.platform.services.ToetsService;
 
 import jakarta.servlet.ServletContext;
 
@@ -26,6 +27,9 @@ public class LeerkrachtController {
 	
 	@Autowired
 	private KlasService klasserv;
+	
+	@Autowired 
+	private ToetsService toetsserv;
 	
 	@Autowired
 	private ServletContext ctx;
@@ -68,16 +72,36 @@ public class LeerkrachtController {
 		ctx.setAttribute("geselecteerde_klas", klas);
 		// query met op het vinden van leerlingen in klas
 		List<Leerling> tmp = klasserv.getLeerlingen(klas);
+		// lijst met alle leerlingen uit klas
+		ctx.setAttribute("leerlingen_lijst", tmp); 
 		
 		/*
 		for (int i = 0; i < tmp.size(); i++) {
 			System.out.println(tmp.get(i).getNaam());
 		}*/
-		
-		
-		
 	    return "scoresToevoegen";
 	}
+	
+	@PostMapping("/submitScores")
+	public String handleSubmitScores(@RequestParam Map<String, String> allParams) {
+		
+		String vak_naam = null;
+		// Alle ingegeven scores per leerling
+		for (Map.Entry<String, String> entry : allParams.entrySet()) {
+			if ("vak_naam".equals(entry.getKey())) {
+				vak_naam = entry.getValue();
+				continue;
+			}
+            String leerling_id = entry.getKey();
+            String score = entry.getValue();
+            System.out.println("Parameter: " + leerling_id + ", Value: " + score);
+        }
+		System.out.println(vak_naam);
+		// toets aanmaken
+		toetsserv.writeToets(vak_naam, getCurrentUsername());
+		return("toetsenBeheer");
+	}
+	
 
 
 }

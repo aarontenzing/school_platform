@@ -34,6 +34,11 @@ public class Toets {
 	public Toets() {
 		
 	}
+	
+	public Toets(String naam, Leerkracht leerkracht) {
+		this.toets_naam = naam;
+		this.leerkracht = leerkracht;
+	}
 
 	public int getToets_id() {
 		return toets_id;
