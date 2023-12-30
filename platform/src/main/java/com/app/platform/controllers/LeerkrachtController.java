@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.app.platform.model.Klas;
 import com.app.platform.model.Leerling;
+import com.app.platform.model.Toets;
 import com.app.platform.services.KlasService;
 import com.app.platform.services.LeerkrachtService;
+import com.app.platform.services.ScoreService;
 import com.app.platform.services.ToetsService;
 
 import jakarta.servlet.ServletContext;
@@ -30,6 +32,9 @@ public class LeerkrachtController {
 	
 	@Autowired 
 	private ToetsService toetsserv;
+	
+	@Autowired
+	private ScoreService scoreserv;
 	
 	@Autowired
 	private ServletContext ctx;
@@ -90,15 +95,27 @@ public class LeerkrachtController {
 		for (Map.Entry<String, String> entry : allParams.entrySet()) {
 			if ("vak_naam".equals(entry.getKey())) {
 				vak_naam = entry.getValue();
+				break;
+			}
+        }
+		System.out.println(vak_naam);
+		// toets aanmaken
+		Toets savedToets = toetsserv.writeToets(vak_naam, getCurrentUsername());
+		// toets id returnen
+		savedToets.getToets_id();
+		// scores weg schrijven
+		for (Map.Entry<String, String> entry : allParams.entrySet()) {
+			if ("vak_naam".equals(entry.getKey()) || "_csrf".equals(entry.getKey())) {
 				continue;
 			}
             String leerling_id = entry.getKey();
             String score = entry.getValue();
             System.out.println("Parameter: " + leerling_id + ", Value: " + score);
+            scoreserv.writeScore(Integer.parseInt(score), 0, savedToets, leerling_id);
         }
-		System.out.println(vak_naam);
-		// toets aanmaken
-		toetsserv.writeToets(vak_naam, getCurrentUsername());
+		
+		
+		
 		return("toetsenBeheer");
 	}
 	

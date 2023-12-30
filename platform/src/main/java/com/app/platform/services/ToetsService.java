@@ -13,10 +13,11 @@ public class ToetsService implements IToetsService {
 	@Autowired
 	ToetsRepository ToetsRepo;
 	
-	public void writeToets(String vaknaam, String leerkracht_id) {
+	public Toets writeToets(String vaknaam, String leerkracht_id) {
 		Leerkracht obj1 = new Leerkracht(leerkracht_id);
 		Toets obj2 = new Toets(vaknaam, obj1);
-		ToetsRepo.saveAndFlush(obj2);
+		return ToetsRepo.saveAndFlush(obj2);
 	}
+	
 
 }

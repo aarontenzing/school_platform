@@ -9,5 +9,7 @@ import com.app.platform.model.Score;
 public interface ScoreRepository extends JpaRepository<Score, Integer>{
 	
 	List<Score> findAllByLeerling(Leerling leering);
+	
+	Score saveAndFlush(Score newScore);
 
 }

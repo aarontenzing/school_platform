@@ -34,6 +34,13 @@ public class Score {
 	public Score() {
 		
 	}
+	
+	public Score(int score, int afwezig, Toets toets, Leerling leerling) {
+		this.score = score;
+		this.afwezig = afwezig;
+		this.toets = toets;
+		this.leerling = leerling;
+	}
 
 	public int getScore_id() {
 		return score_id;
