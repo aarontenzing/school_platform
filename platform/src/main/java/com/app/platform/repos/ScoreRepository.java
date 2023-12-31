@@ -13,13 +13,9 @@ public interface ScoreRepository extends JpaRepository<Score, Integer>{
 	
 	List<Score> findAllByLeerling(Leerling leering);
 	
-	Score saveAndFlush(Score newScore);
-	
 	List<Score> findAllByAfwezig(int isAbsent);
-	
 	
 	@Query("SELECT l FROM Score l WHERE l.score_id = :scoreId")
     Score findByScoreId(@Param("scoreId") int scoreId);
-	
 
 }

@@ -23,8 +23,7 @@ public class Toets {
 	@Column
 	private String toets_naam;
 	
-	@OneToMany
-	@JoinColumn(name = "score_id")
+	@OneToMany(mappedBy = "toets")
 	private List<Score> scores;
 	
 	@ManyToOne

@@ -74,9 +74,10 @@ public class LeerkrachtController {
 			Score old = scoreserv.findByScoreId(obj.getScore_id()); 
 		
 			if (obj.getScore() > -1) {
-				scoreserv.writeScore(obj.getScore(), 0, old.getToets(), old.getLeerling().getLeerling_id());
+				old.setScore(obj.getScore());
+				old.setAfwezig(0);
+				scoreserv.updateScore(old);
 			}
-		
 		}
 		
 		//System.out.println(allParams.getScores().get(0).getScore_id());
@@ -142,7 +143,7 @@ public class LeerkrachtController {
 			}
 			if (entry.getValue().isEmpty()) {
 				leerling_id = entry.getKey();
-				score = "0";
+				score = "-1";
 				isAbsent = 1;
 			}
 			else {

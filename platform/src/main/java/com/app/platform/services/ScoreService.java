@@ -24,7 +24,7 @@ public class ScoreService implements IScoreService {
 	public void writeScore(int score, int afwezig, Toets toets, String leerling_id) {
 		Leerling obj1 = new Leerling(leerling_id);
 		Score score_leerling = new Score(score, afwezig, toets, obj1);
-		ScoreRepo.saveAndFlush(score_leerling);
+		ScoreRepo.save(score_leerling);
 	}
 	
 	public List<Score> findAfwezigen(int bool) {
@@ -34,6 +34,10 @@ public class ScoreService implements IScoreService {
 	
 	public Score findByScoreId(int id) {
 		return ScoreRepo.findByScoreId(id);
+	}
+	
+	public void updateScore(Score score) {
+		ScoreRepo.save(score);
 	}
 	
 
