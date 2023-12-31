@@ -1,5 +1,6 @@
 package com.app.platform.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -7,12 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.app.platform.model.Klas;
 import com.app.platform.model.Leerling;
+import com.app.platform.forms.MyForm;
+import com.app.platform.model.Score;
 import com.app.platform.model.Toets;
 import com.app.platform.services.KlasService;
 import com.app.platform.services.LeerkrachtService;
@@ -54,6 +59,32 @@ public class LeerkrachtController {
 		return "toetsenBeheer";
 	}
 	
+	@GetMapping("/leerkracht/wijzigen") 
+	public String toetsenWijzigen(Model mod){
+		//Scores ophalen waarbij leerling afwezig was
+		MyForm obj = new MyForm(scoreserv.findAfwezigen(1));
+		mod.addAttribute("myForm", obj);
+		return "toetsenWijzigen";
+	}
+	
+	@PostMapping("/update_score") 
+	public String update_score(@ModelAttribute("myForm") MyForm allParams){
+		
+		for (Score obj : allParams.getScores()) {
+			Score old = scoreserv.findByScoreId(obj.getScore_id()); 
+		
+			if (obj.getScore() > -1) {
+				scoreserv.writeScore(obj.getScore(), 0, old.getToets(), old.getLeerling().getLeerling_id());
+			}
+		
+		}
+		
+		//System.out.println(allParams.getScores().get(0).getScore_id());
+		
+		return "toetsenBeheer";
+	
+	}
+	
 	@GetMapping("/leerkracht/toevoegen") 
 	public String toetsenToevoegen(){
 		List<Klas> tmp = leerkrachtserv.findKlassen_van_leerkrachten(getCurrentUsername());
@@ -64,11 +95,6 @@ public class LeerkrachtController {
 		
 		ctx.setAttribute("leerkracht_klassen", tmp);
 		return "toetsenToevoegen";
-	}
-	
-	@GetMapping("/leerkracht/wijzigen") 
-	public String toetsenWijzigen(){
-		return "toetsenWijzigen";
 	}
 	
 	@PostMapping("/add_toets")

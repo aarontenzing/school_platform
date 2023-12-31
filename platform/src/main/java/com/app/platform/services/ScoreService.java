@@ -26,5 +26,15 @@ public class ScoreService implements IScoreService {
 		Score score_leerling = new Score(score, afwezig, toets, obj1);
 		ScoreRepo.saveAndFlush(score_leerling);
 	}
+	
+	public List<Score> findAfwezigen(int bool) {
+		return ScoreRepo.findAllByAfwezig(bool);
+	}
+	
+	
+	public Score findByScoreId(int id) {
+		return ScoreRepo.findByScoreId(id);
+	}
+	
 
 }

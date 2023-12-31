@@ -9,6 +9,20 @@
 
 <h1>Toetsen wijzigen:</h1>
 
+<form th:action="@{/update_score}" th:object="${myForm}" method="post">
+	<table>
+		<thead><td>Afwezigen</td><td>Scores</td></thead>
+		<tbody>
+		<tr th:each="score, i : *{scores}">
+			<td> <label th:text="${score.getLeerling().getNaam()}"></label></td>
+		  	<td> <input type="number" name="score" th:field="*{scores[__${i.index}__].score}" th:value="${score.getScore()}"  min="-1" max="10"></td>
+		  	<td> <input hidden type="number" th:field="*{scores[__${i.index}__].score_id}" th:value="${score.getScore_id()}"></td>
+		</tr>
+		</tbody>
+	</table>
+	<button class="button button3" type="submit">Ingeven</button>
+</form>
+
 <footer th:replace="fragments/general.html :: footer">Hier komt een voeter</footer>
 
 </body>

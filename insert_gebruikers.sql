@@ -4,12 +4,12 @@ VALUES
     ('d2', "Gorik Desamblanx", 'd2', "ROLE_docent", 1),
     ('d3', "Ann Philips", 'd3', "ROLE_docent", 1);
 
-INSERT INTO klassen (leerkracht_id)
+INSERT INTO klassen ()
 VALUES 
-	("d1"),
-    ("d1"),
-    ("d2"),
-    ("d3");
+	(),
+    (),
+    (),
+    ();
 
 INSERT INTO leerlingen (leerling_id, naam, paswoord, rol, klas_id, enabled)
 VALUES 
@@ -18,6 +18,3 @@ VALUES
     ('r3', "Jef", 'r3', "ROLE_student", 1, 1);
 
 COMMIT;
-
-
-

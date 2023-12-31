@@ -21,14 +21,12 @@
         </thead>
         <tbody>
 			<tr th:each="leerling : ${application.leerlingen_lijst}">
-			<td>
-				<label th:for="${leerling.getLeerling_id()}" th:text="${leerling.getNaam()}"></label>
-	  			<input type="number" th:id="${leerling.getLeerling_id()}" th:name="${leerling.getLeerling_id()}" min="1" max="10">
-	  		</td>
+			<td> <label th:for="${leerling.getLeerling_id()}" th:text="${leerling.getNaam()}"></label> </td>
+	  		<td> <input type="number" th:id="${leerling.getLeerling_id()}" th:name="${leerling.getLeerling_id()}" min="0" max="10"> </td>	
 	        </tr>
         </tbody>
 	</table>
-	<button type="submit">Ingeven</button>
+	<button class="button button3" type="submit">Ingeven</button>
 </form>
 
 <footer th:replace="fragments/general.html :: footer">Hier komt een voeter</footer>
