@@ -63,6 +63,9 @@ public class LeerkrachtController {
 	public String toetsenWijzigen(Model mod){
 		//Scores ophalen waarbij leerling afwezig was
 		MyForm obj = new MyForm(scoreserv.findAfwezigen(1));
+		if (obj.getScores().size() == 0) {
+			return "toetsenbeheer";
+		}
 		mod.addAttribute("myForm", obj);
 		return "toetsenWijzigen";
 	}
@@ -89,12 +92,18 @@ public class LeerkrachtController {
 	@GetMapping("/leerkracht/toevoegen") 
 	public String toetsenToevoegen(){
 		List<Klas> tmp = leerkrachtserv.findKlassen_van_leerkrachten(getCurrentUsername());
-		/*
-		for (int i = 0; i < tmp.size(); i++) {
-			System.out.println(tmp.get(i).getKlas_id());
-		}*/
-		
-		ctx.setAttribute("leerkracht_klassen", tmp);
+		if (tmp.size() == 0) {
+			return "toetsenbeheer";
+		}
+		List<Klas> klassen = new ArrayList<Klas>();
+		for (Klas klas : tmp) {
+			System.out.println(klas.getKlas_id());
+			if (klas.getLeerlingen().size() != 0) {
+				klassen.add(klas);
+			}
+			
+		}
+		ctx.setAttribute("leerkracht_klassen", klassen);
 		return "toetsenToevoegen";
 	}
 	
