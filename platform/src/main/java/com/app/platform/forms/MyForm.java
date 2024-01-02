@@ -1,5 +1,4 @@
 package com.app.platform.forms;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.app.platform.model.Score;

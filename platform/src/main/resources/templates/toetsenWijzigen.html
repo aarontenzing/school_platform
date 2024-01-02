@@ -10,13 +10,14 @@
 <h1>Toetsen wijzigen:</h1>
 
 <form th:action="@{/update_score}" th:object="${myForm}" method="post">
-	<table>
-		<thead><td>Afwezigen</td><td>Scores</td></thead>
+	<table id="punten">
+		<thead><td>Afwezigen</td><td>Scores</td><td>Toetsnaam</td></thead>
 		<tbody>
 		<tr th:each="score, i : *{scores}">
 			<td> <label th:text="${score.getLeerling().getNaam()}"></label></td>
 		  	<td> <input type="number" name="score" th:field="*{scores[__${i.index}__].score}" th:value="${score.getScore()}"  min="-1" max="10"></td>
-		  	<td> <input hidden type="number" th:field="*{scores[__${i.index}__].score_id}" th:value="${score.getScore_id()}"></td>
+		  	<input hidden type="number" th:field="*{scores[__${i.index}__].score_id}" th:value="${score.getScore_id()}">
+		  	<td><a th:text="${score.getToets().getToets_naam()}"></td>
 		</tr>
 		</tbody>
 	</table>
