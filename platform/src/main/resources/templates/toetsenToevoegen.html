@@ -12,7 +12,7 @@
 <form th:action="@{/add_toets}" method="post">
 	<button class="button button3" type="submit">Maak toets aan voor klas</button>
 	<select th:name="geselecteerde_klas">
-		<div th:each="klassen : ${application.leerkracht_klassen}">
+		<div th:each="klassen : ${session.leerkracht_klassen}">
 			<option th:text="'klas-' + ${klassen.getKlas_id()}" th:value="${klassen.getKlas_id()}"></option>
 		</div>
 	</select>

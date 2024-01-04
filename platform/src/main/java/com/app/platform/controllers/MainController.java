@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.app.platform.services.ScoreService;
 
 import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
@@ -47,16 +48,12 @@ public class MainController {
 		return "login.html";
 	}
 	
-	@GetMapping("/private/berichten")
-	public String berichten(){
-		return "berichten.html";
-	}
 	
 	@GetMapping("/private/toetsen")
-	public String toetsen(){
+	public String toetsen(HttpSession session){
 		
 		if (getCurrentUsername().contains("r")) {
-			ctx.setAttribute("scores", score.findLeerling(getCurrentUsername()));
+			session.setAttribute("scores", score.findLeerling(getCurrentUsername()));
 			return "toetsen.html";
 		}
 		

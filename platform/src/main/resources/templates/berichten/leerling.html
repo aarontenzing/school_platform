@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="~{fragments/general.html :: headerfiles}">
+	
+</head>
+<head>
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+	<link th:replace="~{fragments/berichten.html :: style}">
+</head>
+
+
+<body>	
+	
+	<div th:replace="~{fragments/general.html :: header}">Hier komt de hoofding</div>
+	<h1 th:text="'Berichten aan ' + ${session.Gebruiker.getNaam()}"></h1>
+	<div id="berichten_portaal" class="berichten_portaal">
+    	<div id="overzicht" class="overzicht">
+			<bericht th:each="berichtlink:${session.berichtlinks}">
+            	<div th:replace="~{fragments/berichten.html :: bericht_info(
+								bericht_id='',
+								berichtlink_id=${berichtlink.getBoodschap_link_id()},
+								titel=${berichtlink.boodschap.getTitel()},
+								tekst=${berichtlink.boodschap.getTekst},
+            					zender='From: '+${berichtlink.boodschap.getZender().getNaam()},
+            					datum=${berichtlink.boodschap.getDateString()},
+            					uur=${berichtlink.boodschap.getTimeString()},
+            					kleur=${berichtlink.isGelezen() ? 'var(--color_gelezen)' : 'var(--color_niet_gelezen)'},
+            					isGelezen=${berichtlink.isGelezen()})
+            					}">
+            	</div>
+		    </bericht>
+        </div>
+            <div class="bericht_view">
+                <h1 id="titel"></h1>
+                <div id="tekst" class="tekst_view">
+                </div>
+            </div>
+        </div>
+
+<footer th:replace="~{fragments/general.html :: footer}">Hier komt een voeter</footer>
+
+</body>
+
+</html>
+
+<script>
+	function toonBericht(div){
+		document.getElementById('titel').innerText = div.getAttribute('titel');
+		document.getElementById('tekst').innerText = div.getAttribute('inhoud');
+		div.style.cssText = "background-color: var(--color_gelezen);";
+		if(div.getAttribute("isGelezen") == "false"){
+			var http = new XMLHttpRequest();
+    		http.open("POST", "/leesBericht?berichtlink_id=" +div.getAttribute("berichtlink_id"), true);
+    		http.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    		const params = "_csrf="+ document.getElementsByTagName('meta')._csrf.content + "&submit=value";
+    		http.send(params);
+		}    	
+	}
+</script>

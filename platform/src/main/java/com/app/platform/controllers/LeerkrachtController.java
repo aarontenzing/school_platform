@@ -25,6 +25,7 @@ import com.app.platform.services.ScoreService;
 import com.app.platform.services.ToetsService;
 
 import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class LeerkrachtController {
@@ -90,7 +91,7 @@ public class LeerkrachtController {
 	}
 	
 	@GetMapping("/leerkracht/toevoegen") 
-	public String toetsenToevoegen(){
+	public String toetsenToevoegen(HttpSession session){
 		List<Klas> tmp = leerkrachtserv.findKlassen_van_leerkrachten(getCurrentUsername());
 		if (tmp.size() == 0) {
 			return "toetsenbeheer";
@@ -103,18 +104,18 @@ public class LeerkrachtController {
 			}
 			
 		}
-		ctx.setAttribute("leerkracht_klassen", klassen);
+		session.setAttribute("leerkracht_klassen", klassen);
 		return "toetsenToevoegen";
 	}
 	
 	@PostMapping("/add_toets")
-	public String add_toets(@RequestParam("geselecteerde_klas") String klas) {
+	public String add_toets(HttpSession session, @RequestParam("geselecteerde_klas") String klas) {
 		System.out.println(klas);
-		ctx.setAttribute("geselecteerde_klas", klas);
+		session.setAttribute("geselecteerde_klas", klas);
 		// query met op het vinden van leerlingen in klas
 		List<Leerling> tmp = klasserv.getLeerlingen(klas);
 		// lijst met alle leerlingen uit klas
-		ctx.setAttribute("leerlingen_lijst", tmp); 
+		session.setAttribute("leerlingen_lijst", tmp); 
 		
 		/*
 		for (int i = 0; i < tmp.size(); i++) {

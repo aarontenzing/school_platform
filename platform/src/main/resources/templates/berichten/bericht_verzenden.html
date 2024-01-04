@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/general.html :: headerfiles}">
+</head>
+<head>
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+	<link th:replace="~{fragments/berichten.html :: style}">
+</head>
+	
+
+
+
+<body>
+<div th:replace="~{fragments/general.html :: header}"></div>
+<form name="berichtForm" th:action="@{/post_bericht}" onsubmit="return validateForm()" method="post">
+		
+    <input class="titelInvoer" type="text" name="titel" placeholder="Titel">
+
+    <textarea class="tekstInvoer" name="tekst" placeholder="Bericht" onchange="console.log(this)"></textarea>
+
+	<div>
+	<select th:name="ontvanger">
+		<option value="" disabled selected>Selecteer Klas</option>
+		<option th:if="${session.Gebruiker.getRol() == 'ROLE_directeur'}" value="publiek">Publiek</option>
+		<option th:each="klas : ${session.Gebruiker.getKlassen()}" th:text="'klas-' + ${klas.getKlas_id()}" th:value="${klas.getKlas_id()}"></option>
+	</select>
+	</div>
+    <input class="button button3" value="Verzenden" type="submit">		
+</form>
+		
+			
+	
+	
+
+<footer th:replace="~{fragments/general.html :: footer}">Hier komt een voeter</footer>
+
+</body>
+
+</html>
+
+<script>
+	function validateForm() {
+  		if (document.forms["berichtForm"]["ontvanger"].value == "") {
+    		alert("Je hebt geen klas geselecteerd.");
+    		return false;
+    	}
+    	if(document.forms["berichtForm"]["tekst"].value == ""){
+			alert("Je bericht is leeg.");
+			return false;
+		}
+		if(document.forms["berichtForm"]["titel"].value == ""){
+			alert("Je hebt geen titel in gegeven.");
+			return false;
+		}
+	}
+</script>

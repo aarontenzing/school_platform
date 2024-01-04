@@ -1,4 +1,4 @@
-package com.app.platform.controllers;
+package com.app.platform;
 
 import javax.sql.DataSource;
 

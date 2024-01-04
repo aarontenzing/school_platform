@@ -14,7 +14,7 @@
 		<th>Score</th>
 		<th>Leerkracht</th>
 	</tr>
-<div th:each="scores : ${application.scores}" clas="score" >
+<div th:each="scores : ${session.scores}" clas="score" >
 	   <tr>
 		   	<div th:if="${scores.getAfwezig() == 0}">
 	      		<td th:text="${scores.getToets().getToets_naam()}"></td> 

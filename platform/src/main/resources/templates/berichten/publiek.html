@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/general.html :: headerfiles}"></head>
+<link th:replace="~{fragments/berichten.html :: style}">
+
+<body>	
+	<div th:replace="~{fragments/general.html :: header}">Hier komt de hoofding</div>
+	<h1>Algemene Berichten</h1>
+	<div id="berichten_portaal" class="berichten_portaal">
+    	<div id="overzicht" class="overzicht">
+			<bericht th:each="bericht:${session.Publieke_berichten}">
+            	<div th:replace="~{fragments/berichten.html :: bericht_info(
+					bericht_id='',
+					berichtlink_id='',
+					titel=${bericht.getTitel()},
+					tekst=${bericht.getTekst},
+					zender='From: '+${bericht.getZender().getNaam()},
+					datum=${bericht.getDateString()},
+					uur=${bericht.getTimeString()},
+					kleur='var(--color_niet_gelezen)', 
+					isGelezen='')}">
+				</div>
+		    </bericht>
+        </div>
+            <div class="bericht_view">
+                <h1 id="titel"></h1>
+                <div id="tekst" class="tekst_view">
+                </div>
+            </div>
+        </div>
+
+<footer th:replace="~{fragments/general.html :: footer}">Hier komt een voeter</footer>
+
+</body>
+
+</html>
+
+<script>
+	function toonBericht(div){
+		document.getElementById('titel').innerText = div.getAttribute('titel');
+		document.getElementById('tekst').innerText = div.getAttribute('inhoud');
+		div.style.cssText = "background-color: var(--color_gelezen);"; 
+	}
+</script>

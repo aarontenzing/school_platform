@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "leerlingen")
-public class Leerling {
+public class Leerling implements Gebruiker{
 	
 	@Id
 	@Column(name = "leerling_id")
@@ -47,42 +47,56 @@ public class Leerling {
 		this.leerling_id = id;
 	}
 
+	@Override
+	public String getId() {
+		return this.leerling_id;
+	}
+	
 	public String getLeerling_id() {
-		return leerling_id;
+		return this.leerling_id;
 	}
 
-	public void setLeerling_id(String leerling_id) {
-		this.leerling_id = leerling_id;
+	@Override
+	public void setId(String id) {
+		this.leerling_id = id;	
 	}
 
+	@Override
 	public String getNaam() {
 		return naam;
 	}
 
+	@Override
 	public void setNaam(String naam) {
 		this.naam = naam;
 	}
 
+	@Override
 	public String getPaswoord() {
 		return paswoord;
 	}
 
+	@Override
 	public void setPaswoord(String paswoord) {
 		this.paswoord = paswoord;
 	}
 
+	@Override
 	public String getRol() {
 		return rol;
 	}
 
+	@Override
 	public void setRol(String rol) {
 		this.rol = rol;
 	}
 
+	@Override
 	public int getEnabled() {
 		return enabled;
 	}
 
+	@Override
 	public void setEnabled(int enabled) {
 		this.enabled = enabled;
 	}
@@ -101,8 +115,6 @@ public class Leerling {
 
 	public void setScores(List<Score> scores) {
 		this.scores = scores;
-	}
-	
-	
+	}	
 
 }

@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name="leerkrachten")
-public class Leerkracht {
+public class Leerkracht implements Gebruiker{
 	
 	@Id
 	@Column(name = "leerkracht_id")
@@ -42,28 +42,55 @@ public class Leerkracht {
 		this.leerkracht_id = leerkracht_id;
 	}
 
-	public String getLeerkracht_id() {
-		return leerkracht_id;
+	@Override
+	public String getId() {
+		return this.leerkracht_id;
 	}
 
-	public void setLeerkracht_id(String leerkracht_id) {
-		this.leerkracht_id = leerkracht_id;
+	@Override
+	public void setId(String id) {
+		this.leerkracht_id = id;
+		
 	}
 
+	@Override
 	public String getNaam() {
-		return naam;
+		return this.naam;
 	}
 
+	@Override
 	public void setNaam(String naam) {
 		this.naam = naam;
 	}
 
+	@Override
 	public String getPaswoord() {
-		return paswoord;
+		return this.paswoord;
 	}
 
+	@Override
 	public void setPaswoord(String paswoord) {
-		this.paswoord = paswoord;
+		this.paswoord = paswoord;	
+	}
+
+	@Override
+	public String getRol() {
+		return this.rol;
+	}
+
+	@Override
+	public void setRol(String rol) {
+		this.rol = rol;		
+	}
+
+	@Override
+	public int getEnabled() {
+		return this.enabled;
+	}
+
+	@Override
+	public void setEnabled(int enabled) {
+		this.enabled = enabled;
 	}
 
 	public List<Toets> getToetsen() {
@@ -80,23 +107,6 @@ public class Leerkracht {
 
 	public void setKlassen(List<Klas> klassen) {
 		this.klassen = klassen;
-	}
-
-	public String getRol() {
-		return rol;
-	}
-
-	public void setRol(String rol) {
-		this.rol = rol;
-	}
-
-	public int getEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(int enabled) {
-		this.enabled = enabled;
-	}
-	
+	}	
 
 }

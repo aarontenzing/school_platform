@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="~{fragments/general.html :: headerfiles}">
+	
+</head>
+<head>
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+	<link th:replace="~{fragments/berichten.html :: style}">
+</head>
+
+
+<body>	
+	
+	<div th:replace="~{fragments/general.html :: header}">Hier komt de hoofding</div>
+	<div style="display: flex; justify-content: space-between;">
+		<h1 th:text="'Berichten van ' + ${session.Gebruiker.getNaam()}"></h1>
+		<div>
+			<a class="button button3" th:href="@{/nieuw_bericht}">Niew Bericht</a>
+			<button class="button button3" onclick="verwijderBericht()">Verwijder Geselecteerd Bericht</a>
+		</div>
+	</div>
+	<div id="berichten_portaal" class="berichten_portaal">
+    	<div id="overzicht" class="overzicht">
+			<bericht th:each="bericht:${session.berichten}">
+            	<div th:replace="~{fragments/berichten.html :: bericht_info(
+								bericht_id=${bericht.getBoodschap_id()},
+								berichtlink_id='',
+								titel=${bericht.getTitel()},
+								tekst=${bericht.getTekst},
+            					zender='To: '+${bericht.isPubliek() ? 'Publiek' : ('Klas ' + bericht.getOntvanger().getKlas_id())},
+            					datum=${bericht.getDateString()},
+            					uur=${bericht.getTimeString()},
+            					kleur='var(--color_niet_gelezen)',
+            					isGelezen='')
+            					}">
+            	</div>
+		    </bericht>
+        </div>
+            <div class="bericht_view">
+                <h1 id="titel"></h1>
+                <div id="tekst" class="tekst_view">
+                </div>
+            </div>
+        </div>
+
+<footer th:replace="~{fragments/general.html :: footer}">Hier komt een voeter</footer>
+
+</body>
+
+</html>
+
+<script>
+	var geselecteerdBericht = "";
+	function toonBericht(div){
+		document.getElementById('titel').innerText = div.getAttribute('titel');
+		document.getElementById('tekst').innerText = div.getAttribute('inhoud');
+		geselecteerdBericht = div.getAttribute("bericht_id");
+	}
+	
+	function verwijderBericht(){
+		if(geselecteerdBericht == ""){
+			return;
+		}
+		var http = new XMLHttpRequest();
+    	http.open("POST", "/verwijderBericht?bericht_id=" + geselecteerdBericht, true);
+    	http.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    	const params = "_csrf="+ document.getElementsByTagName('meta')._csrf.content + "&submit=value";
+    	http.send(params);
+    	window.setTimeout(window.location.reload.bind(window.location), 10);
+	}
+</script>

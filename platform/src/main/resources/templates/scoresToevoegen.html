@@ -7,7 +7,7 @@
 	
 <div th:replace="fragments/general.html :: header">Hier komt de hoofding</div>
 
-<h1>Scores toevoegen klas <span th:text="${application.geselecteerde_klas}"></span></h1>
+<h1>Scores toevoegen klas <span th:text="${session.geselecteerde_klas}"></span></h1>
 
 <form th:action="@{/submitScores}" method="post">
 	<label for="vak_naam">Toets naam:</label>
@@ -20,7 +20,7 @@
             </tr>
         </thead>
         <tbody>
-			<tr th:each="leerling : ${application.leerlingen_lijst}">
+			<tr th:each="leerling : ${session.leerlingen_lijst}">
 			<td> <label th:for="${leerling.getLeerling_id()}" th:text="${leerling.getNaam()}"></label> </td>
 	  		<td> <input type="number" th:id="${leerling.getLeerling_id()}" th:name="${leerling.getLeerling_id()}" min="0" max="10"> </td>	
 	        </tr>

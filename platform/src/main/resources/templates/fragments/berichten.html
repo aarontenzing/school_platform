@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+	
+<link th:fragment="style" rel="stylesheet" href="/bericht_style.css">
+
+<div th:fragment="bericht_info(bericht_id, berichtlink_id, titel, tekst, zender, datum, uur, kleur, isGelezen)">
+	<div class="boodschap-preview" th:bericht_id="${bericht_id}" th:berichtlink_id="${berichtlink_id}" th:isGelezen="${isGelezen}" th:style="'background-color:' + ${kleur} + ';'" th:titel="${titel}" th:inhoud="${tekst}" onclick="toonBericht(this)">
+		<div class="info_title" th:text="${titel}"></div>
+		<div class="info_text"  th:text="${zender}"></div>
+		<div style="display: flex; justify-content: space-between;">
+    		<div class="info_text"  th:text="${uur}"></div>
+			<div class="info_text"  th:text="${datum}"></div>	
+		</div>
+	</div>
+</div>
+
+</html>
+
