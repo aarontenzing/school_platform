@@ -1,7 +1,5 @@
 package com.app.platform.model;
 
-import java.util.List;
-
 public interface Gebruiker {
 
 	public String getId();

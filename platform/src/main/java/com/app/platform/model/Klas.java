@@ -3,6 +3,8 @@ package com.app.platform.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,9 +21,11 @@ public class Klas {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int klas_id;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "klas") 
     private List<Leerling> leerlingen = new ArrayList<>();
 	
+	@JsonBackReference
 	@ManyToMany(mappedBy = "klassen")
 	private List<Leerkracht> leerkrachten = new ArrayList<>();
 	

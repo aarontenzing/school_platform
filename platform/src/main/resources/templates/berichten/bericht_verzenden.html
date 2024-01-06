@@ -13,7 +13,7 @@
 
 <body>
 <div th:replace="~{fragments/general.html :: header}"></div>
-<form name="berichtForm" th:action="@{/post_bericht}" onsubmit="return validateForm()" method="post">
+<form name="berichtForm" th:action="@{/leerkracht/post_bericht}" onsubmit="return validateForm()" method="post">
 		
     <input class="titelInvoer" type="text" name="titel" placeholder="Titel">
 
@@ -22,8 +22,8 @@
 	<div>
 	<select th:name="ontvanger">
 		<option value="" disabled selected>Selecteer Klas</option>
-		<option th:if="${session.Gebruiker.getRol() == 'ROLE_directeur'}" value="publiek">Publiek</option>
-		<option th:each="klas : ${session.Gebruiker.getKlassen()}" th:text="'klas-' + ${klas.getKlas_id()}" th:value="${klas.getKlas_id()}"></option>
+		<option th:if="${session.gebruiker.getRol() == 'ROLE_directeur'}" value="publiek">Publiek</option>
+		<option th:each="klas : ${session.gebruiker.getKlassen()}" th:text="'klas-' + ${klas.getKlas_id()}" th:value="${klas.getKlas_id()}"></option>
 	</select>
 	</div>
     <input class="button button3" value="Verzenden" type="submit">		

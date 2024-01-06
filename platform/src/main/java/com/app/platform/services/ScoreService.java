@@ -14,30 +14,28 @@ import com.app.platform.repos.ScoreRepository;
 public class ScoreService implements IScoreService {
 	
 	@Autowired
-	private ScoreRepository ScoreRepo;
+	private ScoreRepository scoreRepo;
 	
-	public List<Score> findLeerling(String id) {
-		Leerling obj = new Leerling(id);
-		return ScoreRepo.findAllByLeerling(obj);
+	public List<Score> findAllByLeerling(Leerling leerling) {
+		return scoreRepo.findAllByLeerling(leerling);
 	}
 	
-	public void writeScore(int score, int afwezig, Toets toets, String leerling_id) {
-		Leerling obj1 = new Leerling(leerling_id);
-		Score score_leerling = new Score(score, afwezig, toets, obj1);
-		ScoreRepo.save(score_leerling);
+	public void writeScore(int score, int afwezig, Toets toets, Leerling leerling) {
+		Score score_leerling = new Score(score, afwezig, toets, leerling);
+		scoreRepo.save(score_leerling);
 	}
 	
 	public List<Score> findAfwezigen(int bool) {
-		return ScoreRepo.findAllByAfwezig(bool);
+		return scoreRepo.findAllByAfwezig(bool);
 	}
 	
 	
 	public Score findByScoreId(int id) {
-		return ScoreRepo.findByScoreId(id);
+		return scoreRepo.findByScoreId(id);
 	}
 	
 	public void updateScore(Score score) {
-		ScoreRepo.save(score);
+		scoreRepo.save(score);
 	}
 	
 

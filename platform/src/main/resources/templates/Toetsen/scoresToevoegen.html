@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/general.html :: headerfiles}"></head>
+
+<body>	
+	
+<div th:replace="~{fragments/general.html :: header}">Hier komt de hoofding</div>
+
+<h1>Scores toevoegen klas <span th:text="${geselecteerde_klas}"></span></h1>
+
+<form th:action="@{/leerkracht/submitScores}" method="post">
+	<label for="vak_naam">Toets naam:</label>
+	<input type="text" id="vak_naam" name="vak_naam" required><br><br>
+     <table>
+		<thead>
+            <tr>
+                <th>Student</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+			<tr th:each="leerling : ${leerlingen_lijst}">
+			<td> <label th:for="${leerling.getId()}" th:text="${leerling.getNaam()}"></label> </td>
+	  		<td> <input type="number" th:id="${leerling.getId()}" th:name="'Leerling_' + ${leerling.getId()}" min="0" max="10"> </td>	
+	        </tr>
+        </tbody>
+	</table>
+	<button class="button button3" type="submit">Ingeven</button>
+</form>
+
+<footer th:replace="~{fragments/general.html :: footer}">Hier komt een voeter</footer>
+
+</body>
+
+</html>

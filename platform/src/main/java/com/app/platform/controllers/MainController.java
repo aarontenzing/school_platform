@@ -1,37 +1,23 @@
 package com.app.platform.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.app.platform.model.Gebruiker;
+import com.app.platform.model.Leerkracht;
+import com.app.platform.model.Leerling;
 import com.app.platform.services.ScoreService;
 
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
 	
 	@Autowired
-	private ScoreService score;
-	
-	// Deze attributen zijn overal binnen de webserver toegankelijk 
-	@Autowired
-	private ServletContext ctx;
-	
-	public String getCurrentUsername() {
-	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-	    if (authentication != null && authentication.isAuthenticated()) {
-	        return authentication.getName(); // This retrieves the username
-	    }
-
-	    return null; // No authenticated user found
-	}
-	
+	private ScoreService scoreServ;	
 	
 	@GetMapping("/") 
 	public String index(){
@@ -50,16 +36,19 @@ public class MainController {
 	
 	
 	@GetMapping("/private/toetsen")
-	public String toetsen(HttpSession session){
+	public String toetsen(HttpSession session, Model model){
 		
-		if (getCurrentUsername().contains("r")) {
-			session.setAttribute("scores", score.findLeerling(getCurrentUsername()));
-			return "toetsen.html";
+		Gebruiker gebruiker = (Gebruiker) session.getAttribute("gebruiker");
+
+		if (gebruiker instanceof Leerling) {
+			model.addAttribute("scores", scoreServ.findAllByLeerling((Leerling) gebruiker));
+			return "/toetsen/toetsen.html";
 		}
 		
-		else {
+		else if(gebruiker instanceof Leerkracht){
 			return "redirect:/leerkracht/toetsen";
 		}
+		return "redirect:/error";
 	}
 	
 }

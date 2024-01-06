@@ -1,8 +1,9 @@
 package com.app.platform.model;
 
-import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.Date;
-import java.util.Calendar;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,10 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -21,18 +19,20 @@ import jakarta.persistence.TemporalType;
 import java.text.SimpleDateFormat;
 
 @Entity
-@Table(name="boodschappen")
-public class Boodschap {
+@Table(name="berichten")
+public class Bericht {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int boodschap_id;
+	private int bericht_id;
 	
 	@ManyToOne
+	@JsonManagedReference
 	@JoinColumn(name = "leerkracht_id")
 	private Leerkracht zender;
 	
 	@ManyToOne
+	@JsonManagedReference
 	@JoinColumn(name = "klas_id")
 	private Klas ontvanger;
 
@@ -48,29 +48,11 @@ public class Boodschap {
 	@Column(name= "publiek")
 	private boolean publiek = false;
 	
-	
-	
-	public Boodschap(){
-		
-	}
-		
-	public Boodschap(Leerkracht zender, String titel, String tekst, Klas ontvanger) {
-		super();
-		this.zender = zender;
-		this.titel = titel;
-		this.tekst = tekst;
-		this.ontvanger = ontvanger;
-	}
-	
-	public Boodschap(Leerkracht zender, String titel, String tekst, boolean publiek) {
-		super();
-		this.zender = zender;
-		this.titel = titel;
-		this.tekst = tekst;
-		this.publiek = publiek;
-	}
 
-	
+	public Bericht(){
+		
+	}
+		
 	public Klas getOntvanger() {
 		if(ontvanger == null) {
 			return new Klas();
@@ -106,8 +88,8 @@ public class Boodschap {
 		this.tekst = tekst;
 	}
 
-	public int getBoodschap_id() {
-		return boodschap_id;
+	public int getBericht_id() {
+		return bericht_id;
 	}
 
 	public Date getCreationDateTime() {
@@ -128,8 +110,8 @@ public class Boodschap {
 		this.creationDateTime = creationDateTime;
 	}
 
-	public void setBoodschap_id(int boodschap_id) {
-		this.boodschap_id = boodschap_id;
+	public void setBericht_id(int bericht_id) {
+		this.bericht_id = bericht_id;
 	}
 	
 	public boolean isPubliek() {

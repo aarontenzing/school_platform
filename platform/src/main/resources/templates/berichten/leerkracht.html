@@ -14,17 +14,17 @@
 	
 	<div th:replace="~{fragments/general.html :: header}">Hier komt de hoofding</div>
 	<div style="display: flex; justify-content: space-between;">
-		<h1 th:text="'Berichten van ' + ${session.Gebruiker.getNaam()}"></h1>
+		<h1 th:text="'Berichten van ' + ${session.gebruiker.getNaam()}"></h1>
 		<div>
-			<a class="button button3" th:href="@{/nieuw_bericht}">Niew Bericht</a>
+			<a class="button button3" th:href="@{/leerkracht/nieuw_bericht}">Niew Bericht</a>
 			<button class="button button3" onclick="verwijderBericht()">Verwijder Geselecteerd Bericht</a>
 		</div>
 	</div>
 	<div id="berichten_portaal" class="berichten_portaal">
     	<div id="overzicht" class="overzicht">
-			<bericht th:each="bericht:${session.berichten}">
+			<bericht th:each="bericht:${berichten}">
             	<div th:replace="~{fragments/berichten.html :: bericht_info(
-								bericht_id=${bericht.getBoodschap_id()},
+								bericht_id=${bericht.getBericht_id()},
 								berichtlink_id='',
 								titel=${bericht.getTitel()},
 								tekst=${bericht.getTekst},
@@ -63,7 +63,7 @@
 			return;
 		}
 		var http = new XMLHttpRequest();
-    	http.open("POST", "/verwijderBericht?bericht_id=" + geselecteerdBericht, true);
+    	http.open("POST", "/leerkracht/verwijderBericht?bericht_id=" + geselecteerdBericht, true);
     	http.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     	const params = "_csrf="+ document.getElementsByTagName('meta')._csrf.content + "&submit=value";
     	http.send(params);

@@ -1,5 +1,5 @@
 package com.app.platform.services;
 
-public interface IBoodschapService {
+public interface IBerichtLinkService {
 
 }

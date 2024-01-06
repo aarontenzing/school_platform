@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/general.html :: headerfiles"></head>
+<head th:replace="~{fragments/general.html :: headerfiles}"></head>
 
 <body>	
 	
-<div th:replace="fragments/general.html :: header">Hier komt de hoofding</div>
+<div th:replace="~{fragments/general.html :: header}">Hier komt de hoofding</div>
 
 <h1>Toetsen:</h1>
 
@@ -16,7 +16,7 @@
 	</td>
 </table>
 
-<footer th:replace="fragments/general.html :: footer">Hier komt een voeter</footer>
+<footer th:replace="~{fragments/general.html :: footer}">Hier komt een voeter</footer>
 </body>
 
 

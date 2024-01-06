@@ -3,6 +3,9 @@ package com.app.platform.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -33,9 +36,11 @@ public class Leerling implements Gebruiker{
 	
 	// foreign key van klas_id
 	@ManyToOne
+	@JsonManagedReference
     @JoinColumn(name = "klas_id")
     private Klas klas;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "leerling")
 	private List<Score> scores;
 	
@@ -52,10 +57,6 @@ public class Leerling implements Gebruiker{
 		return this.leerling_id;
 	}
 	
-	public String getLeerling_id() {
-		return this.leerling_id;
-	}
-
 	@Override
 	public void setId(String id) {
 		this.leerling_id = id;	

@@ -9,7 +9,7 @@
 	<h1>Algemene Berichten</h1>
 	<div id="berichten_portaal" class="berichten_portaal">
     	<div id="overzicht" class="overzicht">
-			<bericht th:each="bericht:${session.Publieke_berichten}">
+			<bericht th:each="bericht:${publieke_berichten}">
             	<div th:replace="~{fragments/berichten.html :: bericht_info(
 					bericht_id='',
 					berichtlink_id='',

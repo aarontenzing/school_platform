@@ -13,18 +13,18 @@
 <body>	
 	
 	<div th:replace="~{fragments/general.html :: header}">Hier komt de hoofding</div>
-	<h1 th:text="'Berichten aan ' + ${session.Gebruiker.getNaam()}"></h1>
+	<h1 th:text="'Berichten aan ' + ${session.gebruiker.getNaam()}"></h1>
 	<div id="berichten_portaal" class="berichten_portaal">
     	<div id="overzicht" class="overzicht">
-			<bericht th:each="berichtlink:${session.berichtlinks}">
+			<bericht th:each="berichtlink:${berichtlinks}">
             	<div th:replace="~{fragments/berichten.html :: bericht_info(
 								bericht_id='',
-								berichtlink_id=${berichtlink.getBoodschap_link_id()},
-								titel=${berichtlink.boodschap.getTitel()},
-								tekst=${berichtlink.boodschap.getTekst},
-            					zender='From: '+${berichtlink.boodschap.getZender().getNaam()},
-            					datum=${berichtlink.boodschap.getDateString()},
-            					uur=${berichtlink.boodschap.getTimeString()},
+								berichtlink_id=${berichtlink.getBericht_link_id()},
+								titel=${berichtlink.bericht.getTitel()},
+								tekst=${berichtlink.bericht.getTekst},
+            					zender='From: '+${berichtlink.bericht.getZender().getNaam()},
+            					datum=${berichtlink.bericht.getDateString()},
+            					uur=${berichtlink.bericht.getTimeString()},
             					kleur=${berichtlink.isGelezen() ? 'var(--color_gelezen)' : 'var(--color_niet_gelezen)'},
             					isGelezen=${berichtlink.isGelezen()})
             					}">
@@ -51,7 +51,7 @@
 		div.style.cssText = "background-color: var(--color_gelezen);";
 		if(div.getAttribute("isGelezen") == "false"){
 			var http = new XMLHttpRequest();
-    		http.open("POST", "/leesBericht?berichtlink_id=" +div.getAttribute("berichtlink_id"), true);
+    		http.open("POST", "/leerling/leesBericht?berichtlink_id=" +div.getAttribute("berichtlink_id"), true);
     		http.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     		const params = "_csrf="+ document.getElementsByTagName('meta')._csrf.content + "&submit=value";
     		http.send(params);

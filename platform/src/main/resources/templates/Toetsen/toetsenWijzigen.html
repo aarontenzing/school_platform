@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/general.html :: headerfiles"></head>
+<head th:replace="~{fragments/general.html :: headerfiles}"></head>
 
 <body>	
 	
-<div th:replace="fragments/general.html :: header">Hier komt de hoofding</div>
+<div th:replace="~{fragments/general.html :: header}">Hier komt de hoofding</div>
 
 <h1>Toetsen wijzigen:</h1>
 
-<form th:action="@{/update_score}" th:object="${myForm}" method="post">
+<form th:action="@{/leerkracht/update_score}" th:object="${myForm}" method="post">
 	<table id="punten">
 		<thead><td>Afwezigen</td><td>Scores</td><td>Toetsnaam</td></thead>
 		<tbody>
@@ -24,7 +24,7 @@
 	<button class="button button3" type="submit">Ingeven</button>
 </form>
 
-<footer th:replace="fragments/general.html :: footer">Hier komt een voeter</footer>
+<footer th:replace="~{fragments/general.html :: footer}">Hier komt een voeter</footer>
 
 </body>
 

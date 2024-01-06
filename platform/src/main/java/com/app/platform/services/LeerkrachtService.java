@@ -1,15 +1,12 @@
 package com.app.platform.services;
 
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.app.platform.model.BoodschapLink;
-import com.app.platform.model.Gebruiker;
 import com.app.platform.model.Klas;
 import com.app.platform.model.Leerkracht;
 import com.app.platform.repos.LeerkrachtRepository;
@@ -18,20 +15,20 @@ import com.app.platform.repos.LeerkrachtRepository;
 public class LeerkrachtService implements ILeerkrachtService {
 	
 	@Autowired
-	LeerkrachtRepository LeerkrachtRepo;
+	LeerkrachtRepository leerkrachtRepo;
 	
 	public List<Klas> findKlassen_van_leerkrachten(String id) {
-		return LeerkrachtRepo.findKlassenByLeerkrachtId(id);
+		return leerkrachtRepo.findKlassenByLeerkrachtId(id);
 	}
 
 
 	public void save(Leerkracht leerkracht) {
-		LeerkrachtRepo.save(leerkracht);		
+		leerkrachtRepo.save(leerkracht);		
 	}
 
 
 	public Leerkracht getLeerkracht(String id) {
-		Optional<Leerkracht> l = LeerkrachtRepo.findById(id);	
+		Optional<Leerkracht> l = leerkrachtRepo.findById(id);	
 		if(l.isPresent()) {
 			return l.get();
 		}
@@ -40,6 +37,6 @@ public class LeerkrachtService implements ILeerkrachtService {
 
 
 	public List<Leerkracht> getAll() {
-		return LeerkrachtRepo.findAll();
+		return leerkrachtRepo.findAll();
 	}
 }

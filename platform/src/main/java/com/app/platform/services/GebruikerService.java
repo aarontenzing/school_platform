@@ -9,26 +9,23 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.app.platform.model.Gebruiker;
-import com.app.platform.model.Leerkracht;
-import com.app.platform.model.Leerling;
-
 
 @Service
 public class GebruikerService {
 	
 	@Autowired
-	LeerlingService LeerlingServ;
+	LeerlingService leerlingServ;
 	
 	@Autowired
-	LeerkrachtService LeerkrachtServ;
+	LeerkrachtService leerkrachtServ;
 	
 	
 	public Gebruiker getGebruiker(String id) {
 		if(id.startsWith("r")) {
-			return LeerlingServ.getLeerling(id);
+			return leerlingServ.getLeerling(id);
 		}
 		else if(id.startsWith("d")) {
-			return LeerkrachtServ.getLeerkracht(id);
+			return leerkrachtServ.getLeerkracht(id);
 		}
 		return null;
 	}
@@ -45,8 +42,8 @@ public class GebruikerService {
 	public List<Gebruiker> getAllUsers(){	
 		List<Gebruiker> gebruikers_lijst = new ArrayList<Gebruiker>();
 
-		gebruikers_lijst.addAll(LeerlingServ.getAll());
-		gebruikers_lijst.addAll(LeerkrachtServ.getAll());
+		gebruikers_lijst.addAll(leerlingServ.getAll());
+		gebruikers_lijst.addAll(leerkrachtServ.getAll());
 		
 		return gebruikers_lijst;
 	}

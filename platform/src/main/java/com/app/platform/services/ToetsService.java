@@ -11,12 +11,11 @@ import com.app.platform.repos.ToetsRepository;
 public class ToetsService implements IToetsService {
 	
 	@Autowired
-	ToetsRepository ToetsRepo;
+	ToetsRepository toetsRepo;
 	
-	public Toets writeToets(String vaknaam, String leerkracht_id) {
-		Leerkracht obj1 = new Leerkracht(leerkracht_id);
-		Toets obj2 = new Toets(vaknaam, obj1);
-		return ToetsRepo.saveAndFlush(obj2);
+	public Toets writeToets(String vaknaam, Leerkracht leerkracht) {
+		Toets toets = new Toets(vaknaam, leerkracht);
+		return toetsRepo.saveAndFlush(toets);
 	}
 	
 

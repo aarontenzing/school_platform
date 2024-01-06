@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.app.platform.model.BoodschapLink;
 import com.app.platform.model.Klas;
 import com.app.platform.model.Leerling;
 import com.app.platform.repos.KlasRepository;
@@ -16,14 +15,14 @@ import com.app.platform.repos.KlasRepository;
 public class KlasService implements IKlasService{
 	
 	@Autowired
-	KlasRepository KlasRepo;
+	KlasRepository klasRepo;
 	
 	public List<Leerling> getLeerlingen(String klasId) {
-		return KlasRepo.findLeerlingenByKlas(klasId);
+		return klasRepo.findLeerlingenByKlas(klasId);
 	}
 
 	public Klas getKlas(int id) {
-		Optional<Klas> klas = KlasRepo.findById(id);	
+		Optional<Klas> klas = klasRepo.findById(id);	
 		if(klas.isPresent()) {
 			return klas.get();
 		}

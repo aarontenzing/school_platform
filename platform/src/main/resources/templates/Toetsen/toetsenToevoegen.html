@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/general.html :: headerfiles"></head>
+<head th:replace="~{fragments/general.html :: headerfiles}"></head>
 
 <body>	
 	
-<div th:replace="fragments/general.html :: header">Hier komt de hoofding</div>
+<div th:replace="~{fragments/general.html :: header}">Hier komt de hoofding</div>
 
 <h1>Toevoegen:</h1>
 
-<form th:action="@{/add_toets}" method="post">
+<form th:action="@{/leerkracht/add_toets}" method="post">
 	<button class="button button3" type="submit">Maak toets aan voor klas</button>
 	<select th:name="geselecteerde_klas">
-		<div th:each="klassen : ${session.leerkracht_klassen}">
+		<div th:each="klassen : ${leerkracht_klassen}">
 			<option th:text="'klas-' + ${klassen.getKlas_id()}" th:value="${klassen.getKlas_id()}"></option>
 		</div>
 	</select>
 	
 </form>
 
-<footer th:replace="fragments/general.html :: footer">Hier komt een voeter</footer>
+<footer th:replace="~{fragments/general.html :: footer}">Hier komt een voeter</footer>
 
 </body>
 

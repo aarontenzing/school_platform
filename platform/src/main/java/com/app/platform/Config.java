@@ -1,49 +1,74 @@
 package com.app.platform;
 
+import java.io.IOException;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authorization.AuthorityAuthorizationManager;
+import org.springframework.security.authorization.AuthorizationManagers;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.app.platform.handlers.LogoutHandler;
+import com.app.platform.services.GebruikerService;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+@SuppressWarnings("deprecation")
 @Configuration
 public class Config {
 	
 	@Autowired
 	DataSource dataSource;
 	
-	@Bean
-	public SecurityFilterChain beveilig(HttpSecurity http) throws Exception 
+	@Autowired
+	LogoutHandler logoutHandler;
+	
+	@Autowired
+	GebruikerService gebruikerServ;
+
+    @Bean
+    SecurityFilterChain beveilig(HttpSecurity http) throws Exception 
 	{
 		http.authorizeHttpRequests(authorize -> authorize
-				.requestMatchers("/private/**").authenticated()
+				.requestMatchers("/leerkracht/**")
+					.access(AuthorizationManagers.allOf(
+			              AuthorityAuthorizationManager.hasAuthority("ROLE_docent"),
+			              AuthorityAuthorizationManager.hasAuthority("ROLE_directuer")))
+				.requestMatchers("/private/**")
+					.authenticated()
 				.anyRequest().permitAll()
 				)
 				.formLogin(form -> form
 						.loginPage("/login")
-						.defaultSuccessUrl("/home")
 						.permitAll()
+						.successHandler(authenticationSuccessHandler())
 				)
 				.logout(logout -> logout
-						.logoutSuccessUrl("/login"));
+						.logoutSuccessHandler(logoutHandler)
+						);
 		
 		return http.build();
 	}
 
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+    PasswordEncoder passwordEncoder() {
 		return NoOpPasswordEncoder.getInstance();
 	}
 	
 	@Autowired
-	public void dbauth(AuthenticationManagerBuilder auth) throws Exception {
+	public void dbauth(AuthenticationManagerBuilder auth) throws Exception {		
 		auth
 		.jdbcAuthentication()
 		.dataSource(dataSource)
@@ -53,7 +78,18 @@ public class Config {
 		.jdbcAuthentication()
 		.dataSource(dataSource)
 		.usersByUsernameQuery("SELECT leerkracht_id, paswoord, enabled FROM leerkrachten WHERE leerkracht_id=?")
-		.authoritiesByUsernameQuery("SELECT leerkracht_id, rtrim(rol) FROM leerkrachten WHERE leerkracht_id=?");
+		.authoritiesByUsernameQuery("SELECT leerkracht_id, rtrim(rol) FROM leerkrachten WHERE leerkracht_id=?");		
 	} 
-
+	
+	private AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new AuthenticationSuccessHandler() {
+            @Override
+			public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+					Authentication authentication) throws IOException, ServletException {            	
+            	HttpSession session = request.getSession();
+            	session.setAttribute("gebruiker", gebruikerServ.getCurrentUser());
+            	response.sendRedirect("/home");
+			}
+        };
+    }
 }

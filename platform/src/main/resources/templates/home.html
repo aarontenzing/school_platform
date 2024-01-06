@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/general.html :: headerfiles"></head>
+<head th:replace="~{fragments/general.html :: headerfiles}"></head>
 
 <body>	
-<div th:replace="fragments/general.html :: header">Hier komt de hoofding</div>
+<div th:replace="~{fragments/general.html :: header}">Hier komt de hoofding</div>
 <h1>Algemene mededelingen:</h1>
 <p>Arthur je bent mijn dikke vriend :)</p>
 <img src="arthur.jpg" width="300" height="300">
-<footer th:replace="fragments/general.html :: footer">Hier komt een voeter</footer>
+<footer th:replace="~{fragments/general.html :: footer}">Hier komt een voeter</footer>
 </body>
 
 </html>

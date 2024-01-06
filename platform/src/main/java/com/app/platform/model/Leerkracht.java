@@ -2,6 +2,9 @@ package com.app.platform.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -18,11 +21,13 @@ public class Leerkracht implements Gebruiker{
 	@Column(name= "paswoord")
 	private String paswoord;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "leerkracht")
 	private List<Toets> toetsen;
 	
 	// owner van relationship -> altijd mappedBy
 	@ManyToMany
+	@JsonManagedReference
 	@JoinTable(name = "leerkracht_klas", 
 		joinColumns = @JoinColumn(name = "leerkracht_id"),
 		inverseJoinColumns = @JoinColumn(name = "klas_id")

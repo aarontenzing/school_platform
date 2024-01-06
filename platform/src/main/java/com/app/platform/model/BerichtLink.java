@@ -1,6 +1,7 @@
 package com.app.platform.model;
 
-import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,48 +9,42 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="boodschappen_links")
-public class BoodschapLink {
+@Table(name="bericht_links")
+public class BerichtLink {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int boodschap_link_id;
+	private int bericht_link_id;
 	
 	@ManyToOne
 	@JoinColumn(name = "leerling_id")
 	private Leerling ontvanger;
 	
 	@ManyToOne
-	@JoinColumn(name = "boodschap_id")
-	private Boodschap boodschap;
+	@JsonManagedReference
+	@JoinColumn(name = "bericht_id")
+	private Bericht bericht;
 	
 	
 	@Column(name= "gelezen")
 	private boolean gelezen = false;
 
-	public BoodschapLink(){
-		
-	}
 	
-	public BoodschapLink(Leerling ontvanger, Boodschap boodschap) {
-		super();
+	public BerichtLink(Leerling ontvanger, Bericht bericht) {
 		this.ontvanger = ontvanger;
-		this.boodschap = boodschap;
+		this.bericht = bericht;
 	}
 
-	public int getBoodschap_link_id() {
-		return boodschap_link_id;
+	public int getBericht_link_id() {
+		return bericht_link_id;
 	}
 
-	public void setBoodschap_link_id(int boodschap_link_id) {
-		this.boodschap_link_id = boodschap_link_id;
+	public void setBericht_link_id(int bericht_link_id) {
+		this.bericht_link_id = bericht_link_id;
 	}
 
 	public Leerling getOntvanger() {
@@ -60,12 +55,12 @@ public class BoodschapLink {
 		this.ontvanger = ontvanger;
 	}
 
-	public Boodschap getBoodschap() {
-		return boodschap;
+	public Bericht getBericht() {
+		return bericht;
 	}
 
-	public void setBoodschap(Boodschap boodschap) {
-		this.boodschap = boodschap;
+	public void setBericht(Bericht bericht) {
+		this.bericht = bericht;
 	}
 
 

@@ -1,5 +1,7 @@
 package com.app.platform.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,11 +25,14 @@ public class Score {
 	@Column(nullable = false)
 	private int afwezig = 0;
 	
+	
 	@ManyToOne
+	@JsonManagedReference
 	@JoinColumn(name = "toets_id")
 	private Toets toets;
 	
 	@ManyToOne
+	@JsonManagedReference
 	@JoinColumn(name = "leerling_id")
     private Leerling leerling;
 	
