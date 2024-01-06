@@ -31,9 +31,6 @@ import jakarta.servlet.http.HttpSession;
 public class LeerkrachtController {
 	
 	@Autowired
-	private LeerkrachtService leerkrachtserv;
-	
-	@Autowired
 	private KlasService klasserv;
 	
 	@Autowired 

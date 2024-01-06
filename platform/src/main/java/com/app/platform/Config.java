@@ -18,7 +18,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.app.platform.handlers.LogoutHandler;
-import com.app.platform.model.Leerkracht;
 import com.app.platform.services.GebruikerService;
 import com.app.platform.services.LeerkrachtService;
 
