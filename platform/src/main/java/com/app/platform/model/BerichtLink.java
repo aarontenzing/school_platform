@@ -33,6 +33,9 @@ public class BerichtLink {
 	@Column(name= "gelezen")
 	private boolean gelezen = false;
 
+	public BerichtLink() {
+		
+	}
 	
 	public BerichtLink(Leerling ontvanger, Bericht bericht) {
 		this.ontvanger = ontvanger;

@@ -22,11 +22,11 @@ public class Leerkracht implements Gebruiker{
 	private String paswoord;
 	
 	@JsonBackReference
-	@OneToMany(mappedBy = "leerkracht")
+	@OneToMany(mappedBy = "leerkracht", fetch = FetchType.EAGER)
 	private List<Toets> toetsen;
 	
 	// owner van relationship -> altijd mappedBy
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JsonManagedReference
 	@JoinTable(name = "leerkracht_klas", 
 		joinColumns = @JoinColumn(name = "leerkracht_id"),

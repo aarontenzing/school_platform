@@ -37,7 +37,7 @@
     border-radius: 5px;
 }
 
-.boodschap-preview {
+.bericht-preview {
     border: 1px solid var(--preview_border_color);
     margin-bottom: 5px;
     padding: 5px;

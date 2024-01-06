@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -41,7 +42,7 @@ public class Leerling implements Gebruiker{
     private Klas klas;
 	
 	@JsonBackReference
-	@OneToMany(mappedBy = "leerling")
+	@OneToMany(mappedBy = "leerling", fetch = FetchType.EAGER)
 	private List<Score> scores;
 	
 	public Leerling() {

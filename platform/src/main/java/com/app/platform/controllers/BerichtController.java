@@ -63,7 +63,7 @@ public class BerichtController {
 	}
 		
 	@GetMapping("/leerkracht/nieuw_bericht")
-	public String nieuwBericht() {
+	public String nieuwBericht(HttpSession session) {
 		return "berichten/bericht_verzenden.html";
 	}
 	

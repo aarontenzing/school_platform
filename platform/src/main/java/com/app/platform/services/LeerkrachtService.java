@@ -16,11 +16,6 @@ public class LeerkrachtService implements ILeerkrachtService {
 	
 	@Autowired
 	LeerkrachtRepository leerkrachtRepo;
-	
-	public List<Klas> findKlassen_van_leerkrachten(String id) {
-		return leerkrachtRepo.findKlassenByLeerkrachtId(id);
-	}
-
 
 	public void save(Leerkracht leerkracht) {
 		leerkrachtRepo.save(leerkracht);		

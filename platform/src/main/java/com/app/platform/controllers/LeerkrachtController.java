@@ -47,7 +47,7 @@ public class LeerkrachtController {
 	
 	@GetMapping("/leerkracht/toetsen") 
 	public String toetsenBeheer(){
-		return "toetsen/toetsenBeheer";
+		return "toetsen/toetsenBeheer.html";
 	}
 	
 	@GetMapping("/leerkracht/wijzigen") 
@@ -55,10 +55,10 @@ public class LeerkrachtController {
 		//Scores ophalen waarbij leerling afwezig was
 		MyForm obj = new MyForm(scoreserv.findAfwezigen(1));
 		if (obj.getScores().size() == 0) {
-			return "toetsenbeheer";
+			return "toetsen/toetsenbeheer.html";
 		}
 		mod.addAttribute("myForm", obj);
-		return "toetsen/toetsenWijzigen";
+		return "toetsen/toetsenWijzigen.html";
 	}
 	
 	@PostMapping("/leerkracht/update_score") 
@@ -78,11 +78,11 @@ public class LeerkrachtController {
 	
 	@GetMapping("/leerkracht/toevoegen") 
 	public String toetsenToevoegen(Model model, HttpSession session){
-		Gebruiker gebruiker = (Gebruiker) session.getAttribute("gebruiker");
+		Leerkracht leerkracht = (Leerkracht) session.getAttribute("gebruiker");
 
-		List<Klas> tmp = leerkrachtserv.findKlassen_van_leerkrachten(gebruiker.getNaam());
+		List<Klas> tmp = leerkracht.getKlassen();
 		if (tmp.size() == 0) {
-			return "toetsenbeheer";
+			return "toetsen/toetsenbeheer.html";
 		}
 		List<Klas> klassen = new ArrayList<Klas>();
 		for (Klas klas : tmp) {
@@ -91,6 +91,7 @@ public class LeerkrachtController {
 			}
 			
 		}
+		System.out.println(klassen);
 		model.addAttribute("leerkracht_klassen", klassen);
 		return "toetsen/toetsenToevoegen";
 	}

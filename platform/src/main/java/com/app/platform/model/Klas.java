@@ -6,6 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,11 +23,11 @@ public class Klas {
 	private int klas_id;
 	
 	@JsonBackReference
-	@OneToMany(mappedBy = "klas") 
+	@OneToMany(mappedBy = "klas", fetch = FetchType.EAGER) 
     private List<Leerling> leerlingen = new ArrayList<>();
 	
 	@JsonBackReference
-	@ManyToMany(mappedBy = "klassen")
+	@ManyToMany(mappedBy = "klassen", fetch = FetchType.EAGER)
 	private List<Leerkracht> leerkrachten = new ArrayList<>();
 	
 	public Klas( ) {

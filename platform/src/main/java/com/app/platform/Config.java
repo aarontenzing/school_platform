@@ -18,7 +18,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.app.platform.handlers.LogoutHandler;
+import com.app.platform.model.Leerkracht;
 import com.app.platform.services.GebruikerService;
+import com.app.platform.services.LeerkrachtService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -42,10 +44,10 @@ public class Config {
     SecurityFilterChain beveilig(HttpSecurity http) throws Exception 
 	{
 		http.authorizeHttpRequests(authorize -> authorize
-				.requestMatchers("/leerkracht/**")
-					.access(AuthorizationManagers.allOf(
-			              AuthorityAuthorizationManager.hasAuthority("ROLE_docent"),
-			              AuthorityAuthorizationManager.hasAuthority("ROLE_directuer")))
+				.requestMatchers("/leerkracht/**").hasAuthority("ROLE_docent")
+//					.access(AuthorizationManagers.allOf(
+//			              AuthorityAuthorizationManager.hasAuthority("ROLE_docent"),
+//			              AuthorityAuthorizationManager.hasAuthority("ROLE_directuer")))
 				.requestMatchers("/private/**")
 					.authenticated()
 				.anyRequest().permitAll()
@@ -80,6 +82,10 @@ public class Config {
 		.usersByUsernameQuery("SELECT leerkracht_id, paswoord, enabled FROM leerkrachten WHERE leerkracht_id=?")
 		.authoritiesByUsernameQuery("SELECT leerkracht_id, rtrim(rol) FROM leerkrachten WHERE leerkracht_id=?");		
 	} 
+	
+	
+	@Autowired
+	LeerkrachtService serv;
 	
 	private AuthenticationSuccessHandler authenticationSuccessHandler() {
         return new AuthenticationSuccessHandler() {
