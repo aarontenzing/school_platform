@@ -12,5 +12,4 @@ public interface BerichtRepository extends JpaRepository<Bericht, Integer> {
 	List<Bericht> findByPubliekOrderByCreationDateTimeDesc(boolean b);
 
 	List<Bericht> findByZenderOrderByCreationDateTimeDesc(Leerkracht l);
-
 }

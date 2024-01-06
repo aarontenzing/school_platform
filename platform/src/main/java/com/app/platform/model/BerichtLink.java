@@ -21,6 +21,7 @@ public class BerichtLink {
 	private int bericht_link_id;
 	
 	@ManyToOne
+	@JsonManagedReference
 	@JoinColumn(name = "leerling_id")
 	private Leerling ontvanger;
 	

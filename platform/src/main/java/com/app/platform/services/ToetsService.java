@@ -1,5 +1,7 @@
 package com.app.platform.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,12 @@ public class ToetsService implements IToetsService {
 		Toets toets = new Toets(vaknaam, leerkracht);
 		return toetsRepo.saveAndFlush(toets);
 	}
-	
 
+	public List<Toets> getToetsen(Leerkracht l) {
+		return toetsRepo.findAllByLeerkracht(l);
+	}
+
+	public void save(Toets t) {
+		toetsRepo.save(t);		
+	}
 }

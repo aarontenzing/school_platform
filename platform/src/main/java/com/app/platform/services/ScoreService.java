@@ -1,10 +1,12 @@
 package com.app.platform.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.platform.model.Bericht;
 import com.app.platform.model.Leerling;
 import com.app.platform.model.Score;
 import com.app.platform.model.Toets;
@@ -36,6 +38,22 @@ public class ScoreService implements IScoreService {
 	
 	public void updateScore(Score score) {
 		scoreRepo.save(score);
+	}
+
+	public List<Score> findAllByToets(Toets t) {
+		return scoreRepo.findAllByToets(t);
+	}
+
+	public Score getById(int id) {
+		Optional<Score> s = scoreRepo.findById(id);
+		if(s.isPresent()) {
+			return s.get();
+		}
+		return null;
+	}
+
+	public void save(Score t) {
+		scoreRepo.save(t);		
 	}
 	
 

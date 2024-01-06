@@ -40,14 +40,12 @@ public class MainController {
 		
 		Gebruiker gebruiker = (Gebruiker) session.getAttribute("gebruiker");
 
-		System.out.println(gebruiker.getClass());
 		if (gebruiker instanceof Leerling) {
 			model.addAttribute("scores", scoreServ.findAllByLeerling((Leerling) gebruiker));
 			return "toetsen/toetsen.html";
 		}
 		
 		else if(gebruiker instanceof Leerkracht){
-			System.out.println("test");
 			return "redirect:/leerkracht/toetsen";
 		}
 		return "error.html";

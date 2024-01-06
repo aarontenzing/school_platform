@@ -44,10 +44,10 @@ public class Config {
     SecurityFilterChain beveilig(HttpSecurity http) throws Exception 
 	{
 		http.authorizeHttpRequests(authorize -> authorize
-				.requestMatchers("/leerkracht/**").hasAuthority("ROLE_docent")
-//					.access(AuthorizationManagers.allOf(
-//			              AuthorityAuthorizationManager.hasAuthority("ROLE_docent"),
-//			              AuthorityAuthorizationManager.hasAuthority("ROLE_directuer")))
+				.requestMatchers("/leerkracht/**")
+					.access(AuthorizationManagers.anyOf(
+			              AuthorityAuthorizationManager.hasAuthority("ROLE_docent"),
+			              AuthorityAuthorizationManager.hasAuthority("ROLE_directeur")))
 				.requestMatchers("/private/**")
 					.authenticated()
 				.anyRequest().permitAll()

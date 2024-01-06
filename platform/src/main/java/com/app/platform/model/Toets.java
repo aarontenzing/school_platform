@@ -26,6 +26,7 @@ public class Toets {
 	@Column
 	private String toets_naam;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "toets", fetch = FetchType.EAGER)
 	private List<Score> scores;
 	
@@ -35,7 +36,10 @@ public class Toets {
 	private Leerkracht leerkracht;
 	
 	public Toets() {
-		
+	}
+	
+	public Toets(int toets_id) {
+		this.toets_id = toets_id;
 	}
 	
 	public Toets(String naam, Leerkracht leerkracht) {

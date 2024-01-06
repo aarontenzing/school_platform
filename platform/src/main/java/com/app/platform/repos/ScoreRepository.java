@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.app.platform.model.Leerling;
 import com.app.platform.model.Score;
+import com.app.platform.model.Toets;
 
 public interface ScoreRepository extends JpaRepository<Score, Integer>{
 	
@@ -16,5 +17,7 @@ public interface ScoreRepository extends JpaRepository<Score, Integer>{
 	
 	@Query("SELECT l FROM Score l WHERE l.score_id = :scoreId")
     Score findByScoreId(@Param("scoreId") int scoreId);
+
+	List<Score> findAllByToets(Toets t);
 
 }

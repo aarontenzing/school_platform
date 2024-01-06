@@ -96,7 +96,7 @@ public class BerichtController {
 			}
 		}
 			
-		if(ontvanger == "publiek") {
+		if(ontvanger.equals("publiek")) {
 			b.setPubliek(true);
 		}
 		else{
