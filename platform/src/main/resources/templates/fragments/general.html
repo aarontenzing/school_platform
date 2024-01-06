@@ -5,19 +5,23 @@ xmlns:th="http://www.thymeleaf.org">
 	
 <head th:fragment="headerfiles">
 <link rel="stylesheet" href="/style.css">
+<link rel="icon" type="image/x-icon" href="/ScholarView.ico">
 <meta charset="ISO-8859-1">
 <title>ScholarView</title>
 </head>
 
 <body>
 <div th:fragment="header">
-	<h1 id="title">ScholarView</h1>
+	<div class="title">
+	<img src="/ScholarView.png" width="150" height="150">
+	<h1>ScholarView</h1>
+	</div>
 	<nav class="navbar">
 	  	<ul>
 		  	<li><a href="/home">Home</a></li>
-		  	<li th:unless="${#authorization.expression('isAuthenticated()')}"><a href="/login">Login</a></li>
 		  	<li><a href="/berichten">Berichten</a></li>
 		  	<li><a href="/private/toetsen">Toetsen</a></li>
+		  	<li th:unless="${#authorization.expression('isAuthenticated()')}"><a href="/login">Login</a></li>
 		  	<li th:if="${#authorization.expression('isAuthenticated()')}"><form th:action="@{/logout}" method="post"><input type="submit" value="Loguit"></input></form></lith:if="${#authorization.expression('isAuthenticated()')}">
 	  	</ul>	  	
 	</nav>

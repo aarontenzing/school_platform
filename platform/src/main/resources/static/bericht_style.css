@@ -8,7 +8,7 @@
 }
  
 .overzicht{
-    height: 70vh;
+    height: 60vh;
     width: 25vw;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -62,7 +62,7 @@
 }
 
 .bericht_view{
-    height: 70vh;
+    height: 60vh;
     width: 70vw;
     overflow: hidden;
     border: 1px solid var(--border_color);

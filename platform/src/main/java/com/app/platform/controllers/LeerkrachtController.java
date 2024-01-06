@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.app.platform.model.Gebruiker;
+
 import com.app.platform.model.Klas;
 import com.app.platform.model.Leerkracht;
 import com.app.platform.model.Leerling;
@@ -20,7 +20,6 @@ import com.app.platform.forms.MyForm;
 import com.app.platform.model.Score;
 import com.app.platform.model.Toets;
 import com.app.platform.services.KlasService;
-import com.app.platform.services.LeerkrachtService;
 import com.app.platform.services.LeerlingService;
 import com.app.platform.services.ScoreService;
 import com.app.platform.services.ToetsService;
@@ -96,7 +95,7 @@ public class LeerkrachtController {
 	@PostMapping("/leerkracht/add_toets")
 	public String add_toets(Model model, @RequestParam("geselecteerde_klas") String klas) {
 		model.addAttribute("geselecteerde_klas", klas);
-		// query met op het vinden van leerlingen in klas
+		// query op het vinden van leerlingen in klas
 		List<Leerling> tmp = klasserv.getLeerlingen(klas);
 		// lijst met alle leerlingen uit klas
 		model.addAttribute("leerlingen_lijst", tmp); 
@@ -133,7 +132,9 @@ public class LeerkrachtController {
 			if(key.startsWith("Leerling_")) {
 				leerling_id = key.replace("Leerling_", "");
 				leerling = leerlingServ.getLeerling(leerling_id);
-				
+				if (leerling == null) {
+					continue;
+				}
 				if(entry.getValue().isEmpty()) {
 					score = "-1";
 					isAbsent = 1;
