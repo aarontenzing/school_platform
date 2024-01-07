@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,14 +68,14 @@ public class BerichtController {
 		return "berichten/bericht_verzenden.html";
 	}
 	
-	@PostMapping("/leerkracht/verwijderBericht")
+	@DeleteMapping("/leerkracht/verwijderBericht")
 	public String verwijderBericht(@RequestParam("bericht_id") int id) {
 		berichtServ.deleteById(id);
-		return "berichten/leerkracht.html";
+		return "redirect:/berichten";
 	}
 	
 	@PostMapping("/leerkracht/post_bericht")
-	public String nieuwBericht(HttpSession session, @RequestParam Map<String, String> allParams) {
+	public String nieuwBericht(HttpSession session, Model model, @RequestParam Map<String, String> allParams) {
 		Leerkracht leerkracht = (Leerkracht) session.getAttribute("gebruiker");;
 		String ontvanger = null;
 		String bericht = null;
@@ -111,6 +112,7 @@ public class BerichtController {
 		b.setTitel(titel);
 		
 		berichtServ.verzendBericht(b);
+		model.addAttribute("berichten", berichtServ.getAllFromSender(leerkracht));
 		return "berichten/leerkracht.html";
 	}
 }

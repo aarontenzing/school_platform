@@ -3,6 +3,7 @@ package com.app.platform.repos;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.app.platform.model.Bericht;
 import com.app.platform.model.Leerkracht;

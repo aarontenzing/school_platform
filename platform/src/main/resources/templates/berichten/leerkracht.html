@@ -63,10 +63,15 @@
 			return;
 		}
 		var http = new XMLHttpRequest();
-    	http.open("POST", "/leerkracht/verwijderBericht?bericht_id=" + geselecteerdBericht, true);
+    	http.open("DELETE", "/leerkracht/verwijderBericht?bericht_id=" + geselecteerdBericht, true);
     	http.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     	const params = "_csrf="+ document.getElementsByTagName('meta')._csrf.content + "&submit=value";
+    	
+    	http.onload = function () {
+            let responseURL = http.responseURL;
+            console.log("Redirecting to:", responseURL);
+            window.location.replace(responseURL);
+        };
     	http.send(params);
-    	window.setTimeout(window.location.reload.bind(window.location), 10);
 	}
 </script>

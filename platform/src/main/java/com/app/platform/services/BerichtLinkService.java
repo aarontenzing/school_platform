@@ -58,4 +58,5 @@ public class BerichtLinkService implements IBerichtLinkService {
 			berichtLinkRepo.save(bl);		
 		}
 	}
+
 }

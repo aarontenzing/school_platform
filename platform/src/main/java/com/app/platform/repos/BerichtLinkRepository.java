@@ -9,10 +9,9 @@ import com.app.platform.model.BerichtLink;
 import com.app.platform.model.Leerling;
 
 public interface BerichtLinkRepository extends JpaRepository<BerichtLink, Integer>{
-		
+	
 	List<BerichtLink> findAllByOntvanger(Leerling leering);
 
 	@Transactional
 	void deleteAllByBericht(Bericht b);
-	
 }

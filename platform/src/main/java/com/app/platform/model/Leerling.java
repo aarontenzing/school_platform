@@ -3,6 +3,10 @@ package com.app.platform.model;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.app.platform.services.BerichtLinkService;
+import com.app.platform.services.BerichtService;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -118,5 +122,4 @@ public class Leerling implements Gebruiker{
 	public void setScores(List<Score> scores) {
 		this.scores = scores;
 	}	
-
 }

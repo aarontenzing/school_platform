@@ -13,7 +13,10 @@
 <body>	
 	
 	<div th:replace="~{fragments/general.html :: header}">Hier komt de hoofding</div>
-	<h1 th:text="'Berichten aan ' + ${session.gebruiker.getNaam()}"></h1>
+	<div style="display: flex;">
+		<h1 style="float:left" th:text="'Berichten aan ' + ${session.gebruiker.getNaam()}"></h1>
+		<p style="float:left; align-self: flex-end; padding: 10px;" id="niet_gelezen_count"></p>
+	</div>
 	<div id="berichten_portaal" class="berichten_portaal">
     	<div id="overzicht" class="overzicht">
 			<bericht th:each="berichtlink:${berichtlinks}">
@@ -55,6 +58,13 @@
     		http.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     		const params = "_csrf="+ document.getElementsByTagName('meta')._csrf.content + "&submit=value";
     		http.send(params);
-		}    	
+		}   
+		countOngelezen(); 	
 	}
+	function countOngelezen(){
+		var preview_list = document.querySelectorAll('.bericht-preview');
+		var count = Array.from(preview_list).filter((preview) => preview.getAttribute("style") =="background-color:var(--color_niet_gelezen);").length;
+		document.getElementById("niet_gelezen_count").innerHTML = count > 0 ? "[" + count + "]" : "";
+	}
+	countOngelezen(); 
 </script>
