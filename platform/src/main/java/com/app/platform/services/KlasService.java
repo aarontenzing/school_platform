@@ -28,5 +28,9 @@ public class KlasService implements IKlasService{
 		}
 		return null;
 	}
+
+	public void save(Klas k) {
+		klasRepo.save(k);		
+	}
 	
 }

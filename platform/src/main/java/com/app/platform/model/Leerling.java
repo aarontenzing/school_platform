@@ -3,10 +3,6 @@ package com.app.platform.model;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.app.platform.services.BerichtLinkService;
-import com.app.platform.services.BerichtService;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -37,7 +33,7 @@ public class Leerling implements Gebruiker{
 	private String rol = "ROLE_student";
 	
 	@Column(name= "enabled")
-	private int enabled;
+	private int enabled = 1;
 	
 	// foreign key van klas_id
 	@ManyToOne
@@ -55,6 +51,13 @@ public class Leerling implements Gebruiker{
 	
 	public Leerling(String id) {
 		this.leerling_id = id;
+	}
+
+	public Leerling(String naam, String id, String paswoord, Klas klas) {
+		this.setNaam(naam);
+		this.setId(id);
+		this.setKlas(klas);
+		this.setPaswoord(paswoord);
 	}
 
 	@Override

@@ -56,10 +56,13 @@ public class LeekrachtREST {
 	}
 	
 	
-	@PostMapping("/api/berichten/nieuw_bericht")
-	public void voegToeBericht(@RequestBody Bericht b) {
+	@PostMapping("/api/leerkrachten/{leerkracht_id:d\\d+}/nieuw_bericht")
+	public void voegToeBericht(@RequestBody Bericht b, @PathVariable("leerkracht_id") String leerkracht_id) {
+		Leerkracht l = new Leerkracht(leerkracht_id);
+		b.setZender(l);
 		berichtServ.save(b);
 	}
+		
 	
 	@DeleteMapping("/api/berichten/verwijder_bericht/{bericht_id:\\d+}")
 	public void verwijderBericht(@PathVariable("bericht_id") int bericht_id) {
@@ -74,21 +77,23 @@ public class LeekrachtREST {
 		return toetsServ.getToetsen(l);
 	}
 	
-	@PostMapping("/api/toetsen/nieuwe_toets")
-	public void voegToeToets(@RequestBody Toets t) {
+	@PostMapping("/api/leerkrachten/{leerkracht_id:d\\d+}/nieuwe_toets")
+	public void voegToeToets(@RequestBody Toets t, @PathVariable("leerkracht_id") String leerkracht_id) {
+		Leerkracht l = new Leerkracht(leerkracht_id);
+		t.setLeerkracht(l);
 		toetsServ.save(t);
 	}
 	
 	//// SCORES ////
 	
-	@GetMapping("/toetsen/{toets_id:\\d+}/scores")
-	public List<Score> getToetsScores(@PathVariable("leerkracht_id") int toets_id){
+	@GetMapping("/api/toetsen/{toets_id:\\d+}/scores")
+	public List<Score> getToetsScores(@PathVariable("toets_id") int toets_id){
 		Toets t = new Toets(toets_id);
 		return scoreServ.findAllByToets(t);
 	}
 	
-	@GetMapping("/api/scores/{score_id:\\\\d+}")
-	public Score getScore(@PathVariable("leerkracht_id") int score_id){
+	@GetMapping("/api/scores/{score_id:\\d+}")
+	public Score getScore(@PathVariable("score_id") int score_id){
 		return scoreServ.getById(score_id);
 	}
 	

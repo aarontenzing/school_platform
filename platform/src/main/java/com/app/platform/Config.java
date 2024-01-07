@@ -51,6 +51,9 @@ public class Config {
 					.authenticated()
 				.anyRequest().permitAll()
 				)
+				.csrf((csrf) -> csrf
+						.ignoringRequestMatchers("/api/**")
+				)
 				.formLogin(form -> form
 						.loginPage("/login")
 						.permitAll()

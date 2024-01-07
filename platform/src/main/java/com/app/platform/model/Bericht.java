@@ -1,8 +1,5 @@
 package com.app.platform.model;
 
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -27,12 +24,10 @@ public class Bericht {
 	private int bericht_id;
 	
 	@ManyToOne
-	@JsonManagedReference
 	@JoinColumn(name = "leerkracht_id")
 	private Leerkracht zender;
 	
 	@ManyToOne
-	@JsonManagedReference
 	@JoinColumn(name = "klas_id")
 	private Klas ontvanger;
 

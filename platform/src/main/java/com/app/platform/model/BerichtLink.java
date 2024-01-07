@@ -1,8 +1,6 @@
 package com.app.platform.model;
 
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,12 +19,10 @@ public class BerichtLink {
 	private int bericht_link_id;
 	
 	@ManyToOne
-	@JsonManagedReference
 	@JoinColumn(name = "leerling_id")
 	private Leerling ontvanger;
 	
 	@ManyToOne
-	@JsonManagedReference
 	@JoinColumn(name = "bericht_id")
 	private Bericht bericht;
 	

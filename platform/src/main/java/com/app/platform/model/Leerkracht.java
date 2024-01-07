@@ -1,5 +1,6 @@
 package com.app.platform.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -21,7 +22,7 @@ public class Leerkracht implements Gebruiker{
 	@Column(name= "paswoord")
 	private String paswoord;
 	
-	@JsonBackReference
+	@JsonBackReference 
 	@OneToMany(mappedBy = "leerkracht", fetch = FetchType.EAGER)
 	private List<Toets> toetsen;
 	
@@ -32,19 +33,25 @@ public class Leerkracht implements Gebruiker{
 		joinColumns = @JoinColumn(name = "leerkracht_id"),
 		inverseJoinColumns = @JoinColumn(name = "klas_id")
 	)
-	private List<Klas> klassen;
+	private List<Klas> klassen = new ArrayList<Klas>();
 
 	@Column(name= "rol")
 	private String rol = "ROLE_docent";
 	
 	@Column(name= "enabled")
-	private int enabled;
+	private int enabled = 1;
 	
 	public Leerkracht() {
 	}
 	
 	public Leerkracht(String leerkracht_id) {
 		this.leerkracht_id = leerkracht_id;
+	}
+
+	public Leerkracht(String naam, String id, String paswoord) {
+		this.setNaam(naam);
+		this.setId(id);
+		this.setPaswoord(paswoord);
 	}
 
 	@Override
@@ -113,5 +120,8 @@ public class Leerkracht implements Gebruiker{
 	public void setKlassen(List<Klas> klassen) {
 		this.klassen = klassen;
 	}	
-
+	
+	public void addKlas(Klas klas) {
+		this.klassen.add(klas);
+	}
 }
